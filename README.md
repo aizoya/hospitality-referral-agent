@@ -4,7 +4,7 @@
 
 Hospitality Referral Agent is a human-in-the-loop AI agent for hospitality and food businesses. It takes a referral, evaluates its priority, explains why it matters, recommends the next action, and drafts a follow-up for owner approval. It never auto-sends outreach.
 
-This dedicated competition repository implements the vertical slice with the **AWS Strands Agents SDK**.
+This dedicated competition repository implements the vertical slice with the **AWS Strands Agents SDK** for the **Professional Agents** track of the AWS Agents for Humans Hackathon.
 
 ## Problem
 
@@ -50,6 +50,12 @@ flowchart LR
 ```
 
 See [`docs/architecture.md`](docs/architecture.md) for the detailed architecture and scope boundary.
+
+## Competition package
+
+- [`docs/submission-package.md`](docs/submission-package.md) — Devpost-ready project story, requirements checklist, and submission copy
+- [`docs/judge-readiness.md`](docs/judge-readiness.md) — Aizoya OS review against all five judging dimensions
+- [`docs/demo-script.md`](docs/demo-script.md) — under-five-minute demonstration sequence
 
 ## Quick start
 
@@ -129,7 +135,7 @@ This repository intentionally keeps the hackathon slice narrow. The following ar
 - sponsor intelligence
 - AgentCore deployment
 
-AgentCore is a potential later enhancement after the core Strands workflow and submission package are proven.
+AgentCore is a potential later enhancement after the core Strands workflow, live Bedrock validation, and judge-facing demo experience are proven.
 
 ## License
 
