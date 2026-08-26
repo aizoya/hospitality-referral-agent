@@ -56,6 +56,7 @@ See [`docs/architecture.md`](docs/architecture.md) for the detailed architecture
 - [`docs/submission-package.md`](docs/submission-package.md) — Devpost-ready project story, requirements checklist, and submission copy
 - [`docs/judge-readiness.md`](docs/judge-readiness.md) — Aizoya OS review against all five judging dimensions
 - [`docs/demo-script.md`](docs/demo-script.md) — under-five-minute demonstration sequence
+- [`docs/aws-evening-runbook.md`](docs/aws-evening-runbook.md) — safe Bedrock validation and AgentCore decision sequence
 
 ## Quick start
 
@@ -67,6 +68,23 @@ source .venv/bin/activate
 pip install -r requirements.txt
 pytest -q
 ```
+
+### Judge-facing browser demo
+
+Run the zero-dependency local browser interface:
+
+```bash
+python -m scripts.run_web_demo
+```
+
+The interface exposes two explicit paths:
+
+- **Analyze referral offline** — deterministic scoring with no AWS credentials required
+- **Run live Strands + Bedrock** — invokes the real Strands agent when AWS access is configured
+
+Both paths preserve the **OWNER APPROVAL REQUIRED** boundary and never send outreach.
+
+### CLI demos
 
 Run the deterministic score-only demo without AWS credentials:
 
@@ -120,6 +138,8 @@ The test suite verifies:
 - outbound status remains draft-only
 - live validation stops when AWS preflight fails
 - live validation proceeds only after a successful preflight
+- browser demo preserves the human-approval checkpoint
+- offline browser analysis remains credential-free
 
 CI runs the tests and a deterministic smoke demo on every pull request and on the competition branch.
 
@@ -133,9 +153,8 @@ This repository intentionally keeps the hackathon slice narrow. The following ar
 - multi-tenant product expansion
 - referral payouts
 - sponsor intelligence
-- AgentCore deployment
 
-AgentCore is a potential later enhancement after the core Strands workflow, live Bedrock validation, and judge-facing demo experience are proven.
+AgentCore is an optional scoring and learning enhancement. It will be evaluated only after the core Strands workflow, live Bedrock validation, tests, and judge-facing demo are proven stable. The non-AgentCore path remains the rollback-safe baseline.
 
 ## License
 
