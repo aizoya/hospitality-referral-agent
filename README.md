@@ -54,9 +54,10 @@ See [`docs/architecture.md`](docs/architecture.md) for the detailed architecture
 ## Competition package
 
 - [`docs/submission-package.md`](docs/submission-package.md) — Devpost-ready project story, requirements checklist, and submission copy
-- [`docs/judge-readiness.md`](docs/judge-readiness.md) — Aizoya OS review against all five judging dimensions
+- [`docs/judge-readiness.md`](docs/judge-readiness.md) — AIZOYA OS 2.0 review against all five judging dimensions
 - [`docs/demo-script.md`](docs/demo-script.md) — under-five-minute demonstration sequence
 - [`docs/aws-evening-runbook.md`](docs/aws-evening-runbook.md) — safe Bedrock validation and AgentCore decision sequence
+- [`SECURITY.md`](SECURITY.md) — competition security and public-demo guardrails
 
 ## Quick start
 
@@ -71,18 +72,23 @@ pytest -q
 
 ### Judge-facing browser demo
 
-Run the zero-dependency local browser interface:
+Run the zero-dependency browser interface in its default offline-safe mode:
 
 ```bash
 python -m scripts.run_web_demo
 ```
 
-The interface exposes two explicit paths:
+This exposes **Analyze referral offline** only. The deterministic path requires no AWS credentials and cannot create model-invocation cost.
 
-- **Analyze referral offline** — deterministic scoring with no AWS credentials required
-- **Run live Strands + Bedrock** — invokes the real Strands agent when AWS access is configured
+For a controlled local or protected judging session after AWS access is confirmed, explicitly enable the live Strands + Bedrock action:
 
-Both paths preserve the **OWNER APPROVAL REQUIRED** boundary and never send outreach.
+```bash
+python -m scripts.run_web_demo --enable-live
+```
+
+The live action invokes the real Strands agent through Amazon Bedrock. Do not expose unrestricted public Bedrock invocation with project credentials; see `SECURITY.md`.
+
+Both execution modes preserve the **OWNER APPROVAL REQUIRED** boundary and never send outreach.
 
 ### CLI demos
 
@@ -127,6 +133,8 @@ The vertical slice has a hard product boundary:
 
 The agent prompt also forbids claiming that outreach was sent, scheduled, called, or delivered.
 
+The browser demo is offline-safe by default. Live Bedrock invocation must be explicitly enabled for a controlled session, oversized requests are rejected, and user-facing errors do not expose raw infrastructure exceptions.
+
 ## Tests
 
 The test suite verifies:
@@ -140,6 +148,7 @@ The test suite verifies:
 - live validation proceeds only after a successful preflight
 - browser demo preserves the human-approval checkpoint
 - offline browser analysis remains credential-free
+- live browser invocation is disabled by default
 
 CI runs the tests and a deterministic smoke demo on every pull request and on the competition branch.
 
