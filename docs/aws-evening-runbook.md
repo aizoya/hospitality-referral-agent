@@ -4,12 +4,12 @@ Purpose: complete the human-required AWS work in a controlled order after the no
 
 ## Success criteria
 
-A successful session should produce evidence for judges and reusable learning for future Aizoya agents:
+A successful session should produce evidence for judges and reusable learning for future AIZOYA agents:
 
 1. AWS identity and region are confirmed.
 2. Amazon Bedrock model access is confirmed.
 3. The repository's one-command live validation succeeds.
-4. The browser demo successfully invokes the real Strands agent through Bedrock.
+4. The browser demo successfully invokes the real Strands agent through Bedrock in an explicitly enabled controlled session.
 5. Evidence is captured without exposing credentials or private account data.
 6. AgentCore is evaluated only after the core path is stable.
 
@@ -44,18 +44,23 @@ Expected proof:
 
 ## Phase 2 — Browser demonstration
 
-Start the local product surface:
+Start the browser in its default offline-safe mode first:
 
 ```bash
 python -m scripts.run_web_demo
 ```
 
-Open the printed local address.
+Open the printed local address and verify **Analyze referral offline**.
 
-Demonstrate both paths:
+After Phase 1 has passed and only for the controlled AWS session, restart with:
 
-1. **Analyze referral offline** — proves deterministic scoring and human-control behavior without cloud dependency.
-2. **Run live Strands + Bedrock** — proves the actual AWS/Strands agent path.
+```bash
+python -m scripts.run_web_demo --enable-live
+```
+
+Then demonstrate **Run live Strands + Bedrock**.
+
+The `--enable-live` flag is intentional. Do not expose an unrestricted public Bedrock invocation endpoint with project credentials.
 
 Capture evidence showing the product surface and agent response, but crop or omit terminal/account information that could reveal private AWS details.
 
@@ -103,7 +108,7 @@ Never capture:
 
 ## Learning log
 
-After the live AWS session, record these items for reuse across future Aizoya projects:
+After the live AWS session, record these items for reuse across future AIZOYA projects:
 
 - exact Strands version used
 - Bedrock model and region used
@@ -115,4 +120,4 @@ After the live AWS session, record these items for reuse across future Aizoya pr
 - reusable deployment/security patterns
 - reusable human-in-the-loop guardrails
 
-The objective is not only to earn competition points. It is to produce a repeatable Aizoya reference architecture for future AWS agent projects.
+The objective is not only to earn competition points. It is to produce a repeatable AIZOYA reference architecture for future AWS agent projects.
