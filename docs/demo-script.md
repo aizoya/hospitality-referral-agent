@@ -1,47 +1,69 @@
-# Hospitality Referral Agent — Demo Script
+# Hospitality Referral Agent — Competition Demo Script
 
-Target runtime: 3–5 minutes.
+Target runtime: **3:30–4:30**. Hard maximum: five minutes.
 
-## 1. Problem — 30 seconds
+## 1. Problem + product — 30 seconds
 
-Hospitality operators receive referrals from customers, events, vendors, and partners, but busy owners often lose track of which opportunities deserve attention first. Hospitality Referral Agent turns a raw referral into a prioritized, explainable, owner-approved follow-up workflow.
+Open the browser demo first.
 
-## 2. Show the input — 30 seconds
+Say:
 
-Open `examples/sample_referral.json` and point out:
+> Hospitality operators receive valuable referrals through customers, venues, vendors, events, and partners, but during service those opportunities are easy to lose or follow up too late. Hospitality Referral Agent turns one referral into a prioritized, explainable, owner-ready follow-up workflow.
 
-- Oakland event venue
-- referred by an existing catering client
-- immediate catering-partner need
-- high urgency
-- complete contact information
+Do not begin with slides or terminal output. Show the product immediately.
 
-## 3. Show Strands clearly — 45 seconds
+## 2. Referral input + offline analysis — 45 seconds
 
-Open `src/referral_agent.py` and show:
+Run the default offline-safe browser mode:
+
+```bash
+python -m scripts.run_web_demo
+```
+
+Show the synthetic Oakland venue referral and click **Analyze referral offline**.
+
+Highlight:
+
+- score and HIGH / MEDIUM / LOW priority
+- transparent scoring factors
+- recommended timing
+- **OWNER APPROVAL REQUIRED**
+- **DRAFT ONLY — NOTHING HAS BEEN SENT**
+
+State that this deterministic path is credential-free and gives judges a reliable fallback even if cloud access is unavailable.
+
+## 3. Show Strands clearly — 40 seconds
+
+Open `src/referral_agent.py` and show only the key lines:
 
 - `from strands import Agent, tool`
 - `@tool` on `score_referral`
-- `Agent(...)` with the scoring tool
-- the system prompt requiring tool use and owner approval
+- `Agent(...)` configured with the scoring tool
+- system-prompt rules requiring tool use and owner approval
 
-State clearly: AWS Strands Agents orchestrates the referral-analysis workflow and calls a transparent business scoring tool before generating the owner-facing recommendation.
+Say:
 
-## 4. Run the agent — 60 seconds
+> Strands orchestrates the agentic loop. The model must call a transparent business scoring tool before assigning priority, then it explains the result, recommends the next action, and prepares the draft.
 
-First show the deterministic score-only path:
+Avoid reading code line by line.
+
+## 4. Live Strands + Bedrock proof — 60 seconds
+
+After the AWS preflight has already been confirmed, use the controlled live browser mode:
 
 ```bash
-python -m scripts.run_demo --score-only
+python -m scripts.run_web_demo --enable-live
 ```
 
-Then, with AWS/Bedrock credentials configured, run:
+Click **Run live Strands + Bedrock**.
+
+Alternatively, if the browser live path is unavailable, use the one-command validation fallback:
 
 ```bash
 python -m scripts.live_validation --region us-west-2
 ```
 
-Highlight the output sections:
+Highlight:
 
 - PRIORITY
 - WHY
@@ -49,34 +71,59 @@ Highlight the output sections:
 - DRAFT
 - APPROVAL STATUS
 
-## 5. Human approval guardrail — 45 seconds
+State explicitly that this is the real Strands + Amazon Bedrock path.
 
-Emphasize that the agent can analyze, prioritize, explain, recommend, and draft, but it cannot send outreach.
+## 5. Human-control boundary — 35 seconds
 
-Point to:
+Point to the visible approval status.
+
+Say:
+
+> The agent can analyze, prioritize, explain, recommend, and draft. It cannot send the message. The owner decides whether to approve, edit, or reject the follow-up.
+
+Show, briefly:
 
 - `approval_required: true`
 - `DRAFT_ONLY_NOT_SENT`
-- the system prompt rule forbidding claims that anything was sent, scheduled, called, or delivered
+- the prompt rule forbidding claims that anything was sent, scheduled, called, or delivered
 
-## 6. Architecture and tests — 45 seconds
+## 6. Architecture + proof of quality — 35 seconds
 
-Open `docs/architecture.md` and show the referral → Strands Agent → scoring tool → recommendation → owner approval flow.
+Open `docs/architecture.md` and show the narrow referral → Strands → scoring tool → recommendation → approval architecture.
 
-Open GitHub Actions and show the green CI run:
+Then show the latest green GitHub Actions run:
 
-- tests pass
-- deterministic demo smoke test passes
+- automated tests pass
+- deterministic smoke demo passes
+- browser safety boundaries are tested
 
-## 7. Close — 30 seconds
+Do not spend time narrating CI internals.
 
-Hospitality Referral Agent turns referrals into follow-ups without taking control away from the owner. The MVP proves a real end-to-end Strands workflow: intake, prioritization, explanation, next action, draft, and human approval.
+## 7. Close — 25 seconds
+
+Say:
+
+> Hospitality Referral Agent is an AI referral operator for hospitality businesses. It converts fragmented referral context into prioritized, explainable follow-up work and surfaces the exact moment where a human decision is required.
+
+End with the public repository and project name visible.
+
+## Optional AgentCore line
+
+Use this only if AgentCore has been successfully deployed and verified:
+
+> We also deployed the agent through Amazon Bedrock AgentCore to strengthen the production execution path while preserving the same owner-approval boundary.
+
+Do not mention AgentCore as implemented unless it is actually working and demonstrable.
 
 ## Recording checklist
 
-- Keep the full video under five minutes.
-- Show Strands code on screen.
-- Show the actual agent flow, not only slides.
-- Show green CI.
-- Show the owner-approval boundary.
-- End with the dedicated repository and project name visible.
+- [ ] Total runtime under five minutes
+- [ ] Product appears in first 10 seconds
+- [ ] Synthetic referral clearly identified
+- [ ] Strands `Agent` and `@tool` visible
+- [ ] Successful live Bedrock execution visible
+- [ ] Owner-approval boundary visible
+- [ ] Green CI visible
+- [ ] No AWS account IDs, ARNs, credentials, tokens, private customer data, or billing information visible
+- [ ] Public repository visible at close
+- [ ] No unsupported production-impact claims
