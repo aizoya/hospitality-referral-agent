@@ -55,16 +55,31 @@ Referral input → Strands Agent → deterministic scoring tool → score and pr
 
 See `docs/architecture.md` for the architecture diagram and implementation boundary.
 
+## Product surface
+
+The repository includes a zero-dependency browser demo:
+
+```bash
+python -m scripts.run_web_demo
+```
+
+It exposes two explicit paths:
+
+- deterministic offline analysis with no AWS credentials required
+- live Strands + Bedrock execution when AWS access is configured
+
+Both paths preserve the owner-approval boundary and do not send outreach.
+
 ## Recommended demonstration flow
 
-1. Show the real hospitality problem and sample referral.
-2. Show Strands code and the scoring tool.
-3. Run the deterministic score-only demo.
-4. Run the live AWS/Bedrock validation once credentials and model access are confirmed.
-5. Highlight PRIORITY, WHY, NEXT ACTION, DRAFT, and APPROVAL STATUS.
-6. Show green GitHub Actions CI.
-7. Show the owner-approval guardrail.
-8. Close on the business impact and repo.
+1. Open the browser demo and show the hospitality referral problem.
+2. Load or enter the sample referral.
+3. Run deterministic analysis and show transparent scoring.
+4. Briefly show the real Strands `Agent` and `@tool` code.
+5. Run the live AWS/Bedrock path after credentials and model access are confirmed.
+6. Highlight PRIORITY, WHY, NEXT ACTION, DRAFT, and APPROVAL STATUS.
+7. Show the successful GitHub Actions CI run.
+8. Close on the business impact, owner-control boundary, and public repository.
 
 The final video must remain under five minutes.
 
@@ -76,11 +91,23 @@ A referral enters the workflow with business context, need, urgency, referral st
 
 The workflow ends at an explicit owner-approval checkpoint. No message, call, or other outbound action is sent automatically.
 
-The project is intentionally narrow: it demonstrates one complete, auditable referral-to-follow-up workflow rather than a general-purpose chatbot or full CRM. The implementation includes deterministic scoring, live Amazon Bedrock validation support, automated tests, CI, an architecture diagram, sample data, and reproducible setup instructions.
+The project is intentionally narrow: it demonstrates one complete, auditable referral-to-follow-up workflow rather than a general-purpose chatbot or full CRM. The implementation includes deterministic scoring, a browser demo, live Amazon Bedrock validation support, automated tests, CI, an architecture diagram, sample data, and reproducible setup instructions.
 
 ## Creativity and differentiation
 
 The project is not a generic lead-scoring chatbot. Its differentiator is an owner-controlled hospitality workflow that combines deterministic business scoring with model reasoning and a hard approval boundary. The system is designed around how hospitality operators actually work: time-constrained, relationship-driven, and sensitive to inappropriate automated outreach.
+
+Preferred framing for judges:
+
+**An AI referral operator for hospitality businesses: capture context, prioritize transparently, explain the opportunity, prepare the follow-up, and surface the exact moment where the owner must decide.**
+
+## Potential-impact hypothesis
+
+Use this as a measurable hypothesis, not as a production claim:
+
+**Reduce referral response time from hours or days to minutes by converting a referral into an owner-ready, prioritized follow-up draft in one workflow.**
+
+Do not claim measured revenue, conversion, time savings, or production traction unless supporting evidence exists.
 
 ## Safety and trust story
 
@@ -88,33 +115,35 @@ The project is not a generic lead-scoring chatbot. Its differentiator is an owne
 - Explicit owner approval required
 - Transparent scoring components
 - Missing information is surfaced rather than invented
-- Sample data is used for competition demonstration
+- Synthetic sample data is used for competition demonstration
 - CI verifies key guardrails
 
 ## Submission requirements checklist
 
 - [x] Public GitHub repository
-- [x] README
-- [x] MIT license file
+- [x] Competition README on build branch
+- [x] MIT license file on build branch
 - [x] Architecture diagram
 - [x] Strands implementation
 - [x] Reproducible setup instructions
 - [x] Automated tests
-- [x] Green GitHub Actions CI on competition branch
+- [x] Successful GitHub Actions CI on competition branch
+- [x] Local product-facing browser demo
 - [x] Demo script
 - [ ] Successful live AWS/Bedrock validation captured for evidence
-- [ ] Product-facing demo surface or hosted live demo
+- [ ] Public judge-accessible hosted demo or equivalent reliable public demo path
+- [ ] Verified competition branch merged to default `main`
 - [ ] Public YouTube or Vimeo video, maximum five minutes
 - [ ] Final Devpost text entered and proofread
 - [ ] AWS Builder ID entered
-- [ ] Repository About section confirms visible license and competition description
-- [ ] Final public-repo privacy/secrets review
+- [ ] Repository About section confirms visible competition description
+- [ ] Final public-repo privacy/secrets review completed
 - [ ] Optional AgentCore deployment decision completed
-- [ ] Optional builder.aws bonus post published before deadline
+- [ ] Optional Builder Center bonus posts published before deadline
 
 ## Pre-existing work disclosure
 
-This dedicated competition repository and Strands vertical slice were created during the hackathon submission period. If any concept, sample structure, or code is reused from another Aizoya project, disclose that reuse accurately in the final submission. Do not claim pre-existing work was created during the competition period.
+This dedicated competition repository and Strands vertical slice were created during the hackathon submission period. If any concept, sample structure, or code is reused from another AIZOYA project, disclose that reuse accurately in the final submission. Do not claim pre-existing work was created during the competition period.
 
 ## AgentCore decision gate
 
