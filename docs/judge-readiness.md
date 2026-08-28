@@ -1,144 +1,157 @@
-# Hospitality Referral Agent — Judge Readiness Review
+# Hospitality Referral Agent — AIZOYA OS 2.0 Judge Readiness Review
 
-This document tracks the competition build against the five equally weighted Agents for Humans judging dimensions.
+This document tracks the competition build against the five equally weighted Agents for Humans judging dimensions using the current AIZOYA OS 2.0 evidence standard.
+
+## Current decision
+
+**PATCH → TEST → DEPLOY → SUBMIT**
+
+The competition concept and vertical slice are approved. Do not broaden the product scope before submission.
 
 ## 1. Technical Implementation
 
-Current strengths:
+### Green
 
 - Real AWS Strands `Agent` orchestration
 - Real `@tool` implementation
 - Deterministic scoring separated from model reasoning
 - Amazon Bedrock default model path
-- AWS preflight and live validation scripts
-- Automated tests and GitHub Actions CI
+- AWS preflight and one-command live validation scripts
+- Automated tests
+- GitHub Actions CI successfully completed on the competition branch
 - Explicit human-approval guardrail
+- No autonomous outbound communication capability
 
-Remaining gaps:
+### Remaining gates
 
-- Capture a successful live AWS/Bedrock validation run
-- Add a judge-friendly product surface or hosted live demo
-- Decide whether AgentCore adds enough scoring value after the core flow is stable
+- Capture one successful live AWS/Bedrock validation run
+- Confirm final model/region configuration used for the recorded demo
+- Evaluate AgentCore only after the live Bedrock baseline is proven
 
-Competition decision: BUILD live validation and product surface; TEST AgentCore only after those are green.
+**OS 2.0 decision:** TEST live Bedrock first. BUILD AgentCore only if it improves visible judge evidence without destabilizing the baseline.
 
 ## 2. Design
 
-Current strengths:
+### Green
 
 - Coherent referral-to-follow-up workflow
 - Clear output contract: PRIORITY, WHY, NEXT ACTION, DRAFT, APPROVAL STATUS
-- Human approval is part of the experience rather than an afterthought
+- Human approval is part of the product experience
+- Judge-facing browser interface exists
+- Browser interface supports deterministic offline analysis without AWS credentials
+- Browser interface supports a live Strands + Bedrock path when AWS access is configured
 
-Remaining gap:
+### Remaining gate
 
-- Current experience is primarily CLI/code-facing. Judges explicitly reward a complete product experience, so the demo should expose the workflow through a simple, focused interface rather than relying only on terminal output.
+- Host a public judge-accessible demo or provide an equally reliable public demonstration path.
 
-Competition decision: BUILD one narrow demo interface. DEFER CRM, multi-tenant expansion, referral payouts, calling, and unrelated product modules.
+**OS 2.0 decision:** DEPLOY the existing narrow interface. DEFER CRM, multi-tenant expansion, referral payouts, calling, and unrelated modules.
 
 ## 3. Potential Impact
 
-Current strengths:
+### Green
 
 - Specific audience: independent hospitality and food businesses
 - Specific pain: referral opportunities get lost during operations
-- Direct business outcome: faster, more consistent follow-up on warm opportunities
+- Direct business outcome: faster and more consistent follow-up on warm opportunities
 - Human-control design fits relationship-driven hospitality sales
 
-Evidence to strengthen before submission:
+### Evidence to strengthen
 
-- One concise operator story showing how a referral can be missed during service
-- One measurable target such as referral response time, percentage of referrals followed up, or owner time saved
-- If available, a small sample-based before/after demonstration clearly labeled as illustrative rather than production evidence
+Use one clearly labeled impact hypothesis in the pitch. Recommended competition metric:
 
-Competition decision: TEST the pitch with measurable outcomes; do not fabricate traction.
+**Referral response time:** reduce the time from referral capture to an owner-ready follow-up draft from hours or days to minutes.
+
+Do not claim production traction or measured revenue impact unless evidence exists.
+
+**OS 2.0 decision:** PRESERVE evidence discipline. Demonstrate the workflow and state measurable hypotheses as hypotheses.
 
 ## 4. Creativity & Originality
 
-Current strengths:
+### Green
 
-- Hospitality-specific agent rather than a general-purpose sales bot
+- Hospitality-specific agent rather than a general sales chatbot
 - Deterministic business scoring plus model reasoning
 - Owner approval as a hard architectural boundary
 - Designed around relationship-sensitive referral workflows
+- The agent performs a complete professional workflow instead of merely chatting
 
-Risk:
+### Presentation risk
 
-- If presented as merely “lead scoring + message drafting,” the idea may feel generic.
+If described only as “lead scoring + message drafting,” the project may sound generic.
 
-Presentation requirement:
+Use the stronger framing:
 
-Explain that the novelty is the complete owner-controlled referral workflow for hospitality operators: context intake → transparent prioritization → reasoning → timing → draft → explicit decision checkpoint.
-
-Competition decision: PRESERVE the narrow workflow and strengthen the story instead of adding unrelated features.
+**Hospitality Referral Agent is an AI referral operator that converts fragmented hospitality referrals into prioritized, explainable, owner-approved follow-up work.**
 
 ## 5. Presentation
 
-Current strengths:
+### Green
 
-- A 3–5 minute demo script already exists
+- Under-five-minute demo script exists
 - Architecture diagram exists
-- Sample referral exists
-- Green CI can be shown
+- Synthetic sample referral exists
+- Browser demo exists
+- Green GitHub Actions CI can be shown
+- Strands implementation is concise enough to show directly
 
-Remaining gaps:
+### Remaining gates
 
-- Record the actual working agent, not only slides
-- Show Strands code briefly and visibly
-- Show a successful live Bedrock run
-- Show the human approval boundary
-- Use a product-facing interface if available
-- Upload a public YouTube or Vimeo video under five minutes
+- Capture successful live Bedrock execution
+- Record the actual working product, not only slides
+- Show `Agent`, `@tool`, and tool-driven output briefly
+- Show the owner-approval boundary
+- Publish the final public video under five minutes
 
-Competition decision: BUILD a repeatable demo sequence before recording.
+## AIZOYA OS 2.0 internal readiness score
 
-## Aizoya OS competition score
-
-Current estimated readiness: **78 / 100**
+Current estimated readiness: **84 / 100**
 
 - Technical implementation: 18 / 20
-- Design/product completeness: 12 / 20
-- Potential impact: 16 / 20
-- Creativity/originality: 16 / 20
-- Presentation readiness: 16 / 20
+- Design/product completeness: 17 / 20
+- Potential impact: 17 / 20
+- Creativity/originality: 17 / 20
+- Presentation readiness: 15 / 20
 
 This is an internal readiness score, not an official Devpost score.
 
 ### Path to 90+
 
 1. Complete and capture live AWS/Bedrock validation.
-2. Add a small judge-friendly product interface and, if practical, a live demo URL.
-3. Add one measurable impact hypothesis and concise operator scenario.
-4. Rehearse and record the under-five-minute end-to-end video.
-5. Run final repo/privacy/license/setup verification.
-6. Only then evaluate AgentCore as an incremental technical-score enhancement.
+2. Host the existing browser demo or establish a reliable public judge path.
+3. Merge the verified competition branch to the default branch after final review.
+4. Record and publish the under-five-minute end-to-end video.
+5. Complete final Devpost and AWS Builder ID checks.
+6. Test AgentCore only after the baseline is stable.
+7. Publish up to three quality Builder Center posts if time permits and the competition bonus remains available.
 
-## Council of Excellence recommendation
+## Council of Excellence
 
-**Build:** live validation evidence, focused demo interface, final submission copy, measurable impact framing, recording assets.
+**Build:** deployment evidence, recording assets, final submission evidence.
 
-**Patch:** README competition positioning and judge navigation.
+**Patch:** stale competition documentation, judge navigation, final README release state.
 
-**Test:** reproducibility, guardrails, Bedrock access, demo timing, public-repo secrets/privacy.
+**Test:** reproducibility, guardrails, Bedrock access, demo timing, public-repo privacy, deployment rollback.
 
 **Defer:** Twilio, full CRM, referral payouts, sponsor intelligence, multi-tenant expansion, broad analytics.
 
-**AgentCore:** conditional test/build after the core demo is stable.
+**Conditional:** AgentCore after live Bedrock validation.
 
-**Kill for competition scope:** any feature that does not visibly improve one of the five judging criteria before the deadline.
+**Kill for competition scope:** any feature that does not visibly improve a judging dimension before the deadline.
 
 ## Failure Council
 
 Primary failure modes to prevent:
 
-1. **Looks like a prototype instead of a product** — mitigate with a focused interface.
-2. **Claims AWS/Bedrock capability without showing it working** — mitigate with captured live validation.
+1. **Default branch looks unfinished** — merge only after final validation, then ensure `main` is the judge-facing source of truth.
+2. **Claims AWS/Bedrock capability without proof** — capture a successful live validation.
 3. **Strands use is invisible in the demo** — show `Agent`, `@tool`, and actual tool-driven output.
-4. **Overbuilding consumes the schedule** — enforce the narrow vertical slice.
-5. **AgentCore breaks a stable build** — keep it behind a decision gate.
-6. **Submission fails an administrative requirement** — use the submission checklist.
-7. **Accidental secret/private data exposure** — perform a final public-repo audit before submission.
+4. **Overbuilding consumes the schedule** — enforce the locked vertical slice.
+5. **AgentCore destabilizes a working build** — maintain the non-AgentCore rollback path.
+6. **Submission misses an administrative requirement** — use the submission checklist.
+7. **Secret/private-data exposure** — complete the final public-repo audit before merge/submission.
+8. **Video explains instead of demonstrates** — show the live workflow early and keep architecture commentary concise.
 
 ## Founder Challenge
 
-Do not confuse “more features” with “more competitive.” The best next work is the work a judge can see, run, understand, and score. A stable Strands workflow with a polished demo, evidence, and clear business impact is more valuable than a broad unfinished hospitality platform.
+Do not confuse “more features” with “more competitive.” The highest-value remaining work is evidence: a live AWS run, a reliable public demo, a clean default branch, and a concise working-product video.
