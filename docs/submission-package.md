@@ -55,31 +55,40 @@ Referral input → Strands Agent → deterministic scoring tool → score and pr
 
 See `docs/architecture.md` for the architecture diagram and implementation boundary.
 
-## Product surface
+## Product surfaces
 
-The repository includes a zero-dependency browser demo:
+### Public static judge demo
+
+`docs/index.html` is a Pages-ready interactive demo that runs entirely in the browser. It uses synthetic data, duplicates only the deterministic scoring formula, and makes no network or AWS requests.
+
+This is the recommended public **Try it** surface.
+
+### Local / controlled browser demo
+
+Run the zero-dependency browser interface in offline-safe mode:
 
 ```bash
 python -m scripts.run_web_demo
 ```
 
-It exposes two explicit paths:
+After AWS access is confirmed and only in a controlled environment, explicitly enable the real Strands + Bedrock action:
 
-- deterministic offline analysis with no AWS credentials required
-- live Strands + Bedrock execution when AWS access is configured
+```bash
+python -m scripts.run_web_demo --enable-live
+```
 
-Both paths preserve the owner-approval boundary and do not send outreach.
+Both modes preserve the owner-approval boundary and do not send outreach.
 
 ## Recommended demonstration flow
 
 1. Open the browser demo and show the hospitality referral problem.
-2. Load or enter the sample referral.
-3. Run deterministic analysis and show transparent scoring.
-4. Briefly show the real Strands `Agent` and `@tool` code.
-5. Run the live AWS/Bedrock path after credentials and model access are confirmed.
-6. Highlight PRIORITY, WHY, NEXT ACTION, DRAFT, and APPROVAL STATUS.
-7. Show the successful GitHub Actions CI run.
-8. Close on the business impact, owner-control boundary, and public repository.
+2. Run deterministic analysis and show transparent scoring.
+3. Briefly show the real Strands `Agent` and `@tool` code.
+4. Run the live AWS/Bedrock path after credentials and model access are confirmed.
+5. Highlight PRIORITY, WHY, NEXT ACTION, DRAFT, and APPROVAL STATUS.
+6. Show the successful GitHub Actions CI run.
+7. Show the owner-control boundary.
+8. Close on the business impact, public static demo, and public repository.
 
 The final video must remain under five minutes.
 
@@ -91,7 +100,7 @@ A referral enters the workflow with business context, need, urgency, referral st
 
 The workflow ends at an explicit owner-approval checkpoint. No message, call, or other outbound action is sent automatically.
 
-The project is intentionally narrow: it demonstrates one complete, auditable referral-to-follow-up workflow rather than a general-purpose chatbot or full CRM. The implementation includes deterministic scoring, a browser demo, live Amazon Bedrock validation support, automated tests, CI, an architecture diagram, sample data, and reproducible setup instructions.
+The project is intentionally narrow: it demonstrates one complete, auditable referral-to-follow-up workflow rather than a general-purpose chatbot or full CRM. The implementation includes deterministic scoring, a browser demo, a static judge-facing demo, live Amazon Bedrock validation support, automated tests, CI, an architecture diagram, sample data, and reproducible setup instructions.
 
 ## Creativity and differentiation
 
@@ -116,6 +125,8 @@ Do not claim measured revenue, conversion, time savings, or production traction 
 - Transparent scoring components
 - Missing information is surfaced rather than invented
 - Synthetic sample data is used for competition demonstration
+- Public demo makes no AWS/network requests
+- Live Bedrock browser action is disabled by default
 - CI verifies key guardrails
 
 ## Submission requirements checklist
@@ -127,17 +138,18 @@ Do not claim measured revenue, conversion, time savings, or production traction 
 - [x] Strands implementation
 - [x] Reproducible setup instructions
 - [x] Automated tests
-- [x] Successful GitHub Actions CI on competition branch
+- [x] Successful GitHub Actions CI after security hardening
 - [x] Local product-facing browser demo
+- [x] Pages-ready static judge demo asset
 - [x] Demo script
+- [x] Current public-repo privacy/secrets review completed
 - [ ] Successful live AWS/Bedrock validation captured for evidence
-- [ ] Public judge-accessible hosted demo or equivalent reliable public demo path
+- [ ] GitHub Pages enabled and public static demo URL verified
 - [ ] Verified competition branch merged to default `main`
 - [ ] Public YouTube or Vimeo video, maximum five minutes
 - [ ] Final Devpost text entered and proofread
 - [ ] AWS Builder ID entered
 - [ ] Repository About section confirms visible competition description
-- [ ] Final public-repo privacy/secrets review completed
 - [ ] Optional AgentCore deployment decision completed
 - [ ] Optional Builder Center bonus posts published before deadline
 
