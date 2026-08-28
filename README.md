@@ -57,6 +57,7 @@ See [`docs/architecture.md`](docs/architecture.md) for the detailed architecture
 - [`docs/judge-readiness.md`](docs/judge-readiness.md) — AIZOYA OS 2.0 review against all five judging dimensions
 - [`docs/demo-script.md`](docs/demo-script.md) — under-five-minute demonstration sequence
 - [`docs/aws-evening-runbook.md`](docs/aws-evening-runbook.md) — safe Bedrock validation and AgentCore decision sequence
+- [`docs/public-demo-deployment.md`](docs/public-demo-deployment.md) — GitHub Pages deployment and QA runbook
 - [`SECURITY.md`](SECURITY.md) — competition security and public-demo guardrails
 
 ## Quick start
@@ -70,7 +71,13 @@ pip install -r requirements.txt
 pytest -q
 ```
 
-### Judge-facing browser demo
+### Static public judge demo
+
+`docs/index.html` is a Pages-ready interactive demo. It runs entirely in the browser using synthetic data and the deterministic scoring formula. It makes no AWS or network requests.
+
+This is the recommended public **Try it** surface after GitHub Pages is enabled from `main` → `/docs`.
+
+### Local judge-facing browser demo
 
 Run the zero-dependency browser interface in its default offline-safe mode:
 
@@ -135,6 +142,8 @@ The agent prompt also forbids claiming that outreach was sent, scheduled, called
 
 The browser demo is offline-safe by default. Live Bedrock invocation must be explicitly enabled for a controlled session, oversized requests are rejected, and user-facing errors do not expose raw infrastructure exceptions.
 
+The static public judge demo makes no network requests and cannot invoke Bedrock.
+
 ## Tests
 
 The test suite verifies:
@@ -149,6 +158,7 @@ The test suite verifies:
 - browser demo preserves the human-approval checkpoint
 - offline browser analysis remains credential-free
 - live browser invocation is disabled by default
+- static public demo contains safety markers and no network API calls
 
 CI runs the tests and a deterministic smoke demo on every pull request and on the competition branch.
 
