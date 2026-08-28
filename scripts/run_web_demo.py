@@ -1,8 +1,8 @@
 """Zero-dependency browser demo for the Hospitality Referral Agent.
 
-The default action runs deterministic scoring without AWS credentials. A separate
-live action invokes the real Strands/Bedrock agent when AWS credentials and model
-access are configured. No outbound communication is ever sent.
+The default server exposes deterministic scoring without AWS credentials. A live
+Strands/Bedrock action is available only when the server is started explicitly
+with --enable-live. No outbound communication is ever sent.
 """
 
 from __future__ import annotations
@@ -14,6 +14,8 @@ from urllib.parse import parse_qs
 
 from src.referral_agent import Referral, analyze_referral, score_referral_record
 
+
+MAX_BODY_BYTES = 16_384
 
 SAMPLE = {
     "business_name": "Harbor Hall",
@@ -36,7 +38,13 @@ def _field(name: str, value: str, label: str) -> str:
     )
 
 
-def render_page(data: dict | None = None, result: dict | None = None, error: str = "") -> str:
+def render_page(
+    data: dict | None = None,
+    result: dict | None = None,
+    error: str = "",
+    *,
+    live_enabled: bool = False,
+) -> str:
     data = {**SAMPLE, **(data or {})}
     score = result.get("score") if result else None
     priority = result.get("priority") if result else None
@@ -66,6 +74,16 @@ def render_page(data: dict | None = None, result: dict | None = None, error: str
         """
 
     error_html = f'<div class="error">{html.escape(error)}</div>' if error else ""
+    live_button = (
+        '<button class="secondary" name="action" value="live" type="submit">Run live Strands + Bedrock</button>'
+        if live_enabled
+        else ""
+    )
+    mode_note = (
+        "Offline analysis is deterministic and credential-free. Live analysis is enabled for this controlled session and uses the real Strands agent and Amazon Bedrock."
+        if live_enabled
+        else "Offline analysis is deterministic and credential-free. Live Bedrock invocation is disabled by default; start the server with --enable-live only in a controlled environment."
+    )
 
     return f"""<!doctype html>
 <html lang="en">
@@ -115,10 +133,10 @@ small {{ color:#64748b; }}
   <label class="wide">Notes<textarea name="notes">{html.escape(str(data['notes']))}</textarea></label>
   <div class="actions">
     <button class="primary" name="action" value="score" type="submit">Analyze referral offline</button>
-    <button class="secondary" name="action" value="live" type="submit">Run live Strands + Bedrock</button>
+    {live_button}
   </div>
 </form>
-<small>Offline analysis is deterministic and credential-free. Live analysis uses the real Strands agent and Amazon Bedrock.</small>
+<small>{html.escape(mode_note)}</small>
 </section>
 {result_html}
 </main></body></html>"""
@@ -142,35 +160,59 @@ def _parse_form(body: bytes) -> dict:
     }
 
 
-def evaluate(data: dict) -> dict:
+def evaluate(data: dict, *, live_enabled: bool = False) -> dict:
     result = score_referral_record(data)
     if data.get("action") == "live":
+        if not live_enabled:
+            raise PermissionError("Live Bedrock invocation is disabled for this server session.")
         referral_fields = {k: v for k, v in data.items() if k != "action"}
         result["live_output"] = analyze_referral(Referral(**referral_fields))
     return result
 
 
 class DemoHandler(BaseHTTPRequestHandler):
+    live_enabled = False
+
     def _send(self, page: str, status: int = 200) -> None:
         payload = page.encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(payload)))
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Cache-Control", "no-store")
         self.end_headers()
         self.wfile.write(payload)
 
     def do_GET(self) -> None:  # noqa: N802
-        self._send(render_page())
+        self._send(render_page(live_enabled=self.live_enabled))
 
     def do_POST(self) -> None:  # noqa: N802
+        data = SAMPLE
         try:
             length = int(self.headers.get("Content-Length", "0"))
+            if length < 0 or length > MAX_BODY_BYTES:
+                self._send(
+                    render_page(
+                        data,
+                        error="Request is too large for the competition demo.",
+                        live_enabled=self.live_enabled,
+                    ),
+                    413,
+                )
+                return
             data = _parse_form(self.rfile.read(length))
-            result = evaluate(data)
-            self._send(render_page(data, result))
-        except Exception as exc:  # judge demo should fail visibly, not silently
-            safe_data = locals().get("data", SAMPLE)
-            self._send(render_page(safe_data, error=f"Analysis could not complete: {exc}"), 500)
+            result = evaluate(data, live_enabled=self.live_enabled)
+            self._send(render_page(data, result, live_enabled=self.live_enabled))
+        except Exception as exc:  # fail visibly without leaking infrastructure detail
+            print(f"Demo analysis error: {type(exc).__name__}")
+            self._send(
+                render_page(
+                    data,
+                    error="Analysis could not complete. Check the controlled demo environment and try again.",
+                    live_enabled=self.live_enabled,
+                ),
+                500,
+            )
 
     def log_message(self, format: str, *args: object) -> None:
         return
@@ -180,9 +222,16 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run the local judge-facing browser demo")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument(
+        "--enable-live",
+        action="store_true",
+        help="Expose the live Strands + Bedrock action for a controlled session",
+    )
     args = parser.parse_args()
+    DemoHandler.live_enabled = args.enable_live
     server = ThreadingHTTPServer((args.host, args.port), DemoHandler)
     print(f"Hospitality Referral Agent demo: http://{args.host}:{args.port}")
+    print(f"Live Strands + Bedrock: {'ENABLED' if args.enable_live else 'DISABLED'}")
     print("Press Ctrl+C to stop.")
     try:
         server.serve_forever()
