@@ -7,7 +7,7 @@ Purpose: complete the human-required AWS work in a controlled order after the no
 A successful session should produce evidence for judges and reusable learning for future AIZOYA agents:
 
 1. AWS identity and region are confirmed.
-2. Amazon Bedrock model access is confirmed.
+2. Amazon Bedrock model access is confirmed in that same region.
 3. The repository's one-command live validation succeeds.
 4. The browser demo successfully invokes the real Strands agent through Bedrock in an explicitly enabled controlled session.
 5. Evidence is captured without exposing credentials or private account data.
@@ -28,8 +28,10 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 pytest -q
-python -m scripts.live_validation --region us-west-2
+python -m scripts.live_validation --region <verified-region>
 ```
+
+Replace `<verified-region>` with the AWS region you intentionally selected and verified for Bedrock access. The live-validation helper now keeps both the preflight and live Strands invocation in that exact same region.
 
 If the configured model requires an explicit model ID, use the repository-supported model argument rather than editing source code.
 
