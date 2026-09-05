@@ -43,7 +43,13 @@ def main() -> int:
         print("Reason: preflight failed. Do not continue to the model invocation.")
         return 1
 
-    demo = [sys.executable, "-m", "scripts.run_demo"]
+    demo = [
+        sys.executable,
+        "-m",
+        "scripts.run_demo",
+        "--region",
+        args.region,
+    ]
     if args.model:
         demo.extend(["--model", args.model])
 
