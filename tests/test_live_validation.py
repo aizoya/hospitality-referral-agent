@@ -52,3 +52,5 @@ def test_main_runs_demo_after_successful_preflight(monkeypatch):
     assert "example-model" in calls[0][1]
     assert "--model" in calls[1][1]
     assert "example-model" in calls[1][1]
+    assert calls[0][1][calls[0][1].index("--region") + 1] == "us-west-2"
+    assert calls[1][1][calls[1][1].index("--region") + 1] == "us-west-2"
