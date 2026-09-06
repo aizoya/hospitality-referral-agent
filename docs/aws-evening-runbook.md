@@ -17,7 +17,7 @@ A successful session should produce evidence for judges and reusable learning fo
 
 Do not paste AWS access keys, secret keys, session tokens, billing identifiers, account IDs, or private credentials into public issues, source files, screenshots, videos, or the repository.
 
-Any action that can create paid infrastructure, change account-level permissions, or enable a paid service requires an explicit human decision first.
+Any action that can create paid infrastructure, change account-level permissions, accept provider terms, submit external company/use-case information, or enable a paid service requires an explicit human decision first.
 
 ## Phase 1 — Bedrock proof first
 
@@ -57,6 +57,20 @@ If the preflight succeeds but the live Strands invocation fails with an `AccessD
 5. Never include passwords, access keys, MFA secrets, account recovery material, or private credentials in support correspondence.
 
 For the September 5, 2026 validation attempt, the repository tests and read-only Bedrock preflight passed in `us-east-2`, and the first live Strands request reached Bedrock `ConverseStream` before AWS rejected it because the account was still being verified. This is evidence that the local application path and Bedrock discovery path were functioning up to the external account-verification gate.
+
+### Anthropic First Time Use (FTU) gate
+
+After the AWS account-verification message cleared, the next live attempt reached Bedrock and returned a provider-specific `ResourceNotFoundException` stating that use-case details had not yet been submitted for Anthropic models. Treat this as a one-time provider-access gate, not a code failure.
+
+AWS documents that first-time Anthropic customers must submit use-case details once per account or AWS organization before invoking Anthropic models through the Bedrock runtime. The form requires an intended-use description and a website or project URL. Access is expected after the form is successfully submitted.
+
+For this project, the truthful intended-use description should stay narrow and match the competition implementation:
+
+> AIZOYA is building a human-in-the-loop Hospitality Referral Agent for the AWS Agents for Humans Hackathon. The agent helps independent hospitality and food-business operators turn structured referral information into a transparent priority score, explanation, recommended next action, and draft follow-up. The workflow uses AWS Strands Agents and Amazon Bedrock. It does not autonomously send email, SMS, calls, or other outreach; outbound communication remains draft-only and requires explicit owner approval. The project uses synthetic demonstration data for the hackathon and is intended to reduce missed or delayed referral follow-up while preserving human control.
+
+Recommended project URL: the public competition repository or an official AIZOYA website page that accurately describes the project.
+
+Submitting the FTU form is a human-owned external representation and provider-terms gate. Do not submit it automatically.
 
 ## Phase 2 — Browser demonstration
 
