@@ -44,6 +44,20 @@ Expected proof:
 - The response contains PRIORITY, WHY, NEXT ACTION, DRAFT, and APPROVAL STATUS.
 - The output clearly remains draft-only and owner-controlled.
 
+### Account-verification troubleshooting
+
+A successful model-list preflight does not guarantee that Bedrock runtime invocation is immediately enabled for a newly created AWS account.
+
+If the preflight succeeds but the live Strands invocation fails with an `AccessDeniedException` stating that the AWS account is currently being verified:
+
+1. Treat the failure as an AWS account-activation gate, not as an application-code or IAM-policy defect.
+2. Do not broaden IAM permissions, create access keys, or change models merely to bypass the message.
+3. Wait the interval specified by AWS in the error message, then retry the same command in the same verified region.
+4. If the same verification message remains after the stated interval, contact the AWS verification address named in the runtime error.
+5. Never include passwords, access keys, MFA secrets, account recovery material, or private credentials in support correspondence.
+
+For the September 5, 2026 validation attempt, the repository tests and read-only Bedrock preflight passed in `us-east-2`, and the first live Strands request reached Bedrock `ConverseStream` before AWS rejected it because the account was still being verified. This is evidence that the local application path and Bedrock discovery path were functioning up to the external account-verification gate.
+
 ## Phase 2 — Browser demonstration
 
 Start the browser in its default offline-safe mode first:
