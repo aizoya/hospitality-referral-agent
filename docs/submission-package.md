@@ -88,9 +88,28 @@ The application path is validated through the Bedrock runtime boundary:
 - The live Strands request reaches Bedrock `ConverseStream`.
 - The earlier AWS account-verification and Anthropic first-time-use gates no longer recur.
 - The remaining external blocker is an account-level Bedrock daily-token quota of `0` for Claude Sonnet 4.6, including non-adjustable daily-token quotas.
-- AWS Support is reviewing the account-level provisioning issue.
+- AWS Support has confirmed the restriction is associated with the account being newly created and has submitted the request to the Bedrock service team for review.
 
 Do not broaden IAM permissions, create long-lived access keys, switch models merely to bypass the quota, or claim a successful live response until one is actually captured.
+
+## Official Devpost rules cross-check — September 7, 2026
+
+The current official rules/FAQ confirm:
+
+- submission deadline: September 14, 2026 at 5:00 PM PDT
+- one track per submission; Professional Agents is the appropriate track for this small-business workflow
+- project must be newly created during the August 10–September 14 submission period
+- any non-standard pre-existing code/work incorporated into the project must be disclosed
+- public code repository is required
+- repository must include source code, assets, setup instructions, README, and an MIT or Apache open-source license visible in the repository About area
+- architecture diagram is required
+- public YouTube or Vimeo video is required, maximum five minutes
+- video must demonstrate the working project and pitch the problem, who it is for, and why it matters
+- AWS Builder ID is required
+- live demo link is optional but can strengthen Technical Implementation
+- AgentCore is optional; it can strengthen Technical Implementation but is not required
+
+Release implication: do not delay the core submission for AgentCore. Prioritize a compliant, verifiable Strands submission with a reliable public demo and accurate disclosure.
 
 ## Recommended demonstration flow
 
@@ -157,13 +176,14 @@ Do not claim measured revenue, conversion, time savings, or production traction 
 - [x] Demo script with truthful external-quota contingency path
 - [x] Current public-repo privacy/secrets review completed
 - [x] Bedrock preflight/model discovery and request routing to `ConverseStream` captured
+- [x] Official Devpost rules/FAQ cross-checked against the submission package
 - [ ] Successful live AWS/Bedrock model response captured for evidence
 - [ ] GitHub Pages enabled and public static demo URL verified
 - [ ] Verified competition branch merged to default `main`
 - [ ] Public YouTube or Vimeo video, maximum five minutes
 - [ ] Final Devpost text entered and proofread
 - [ ] AWS Builder ID entered
-- [ ] Repository About section confirms visible competition description
+- [ ] Repository About section confirms visible competition description and license
 - [ ] Optional AgentCore deployment decision completed
 - [ ] Optional Builder Center bonus posts published before deadline
 
