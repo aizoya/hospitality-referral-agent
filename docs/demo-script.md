@@ -57,10 +57,10 @@ python -m scripts.run_web_demo --enable-live
 
 Click **Run live Strands + Bedrock**.
 
-Alternatively, if the browser live path is unavailable, use the one-command validation fallback:
+Alternatively, if the browser live path is unavailable, use the one-command validation fallback in the region already confirmed by preflight/model discovery:
 
 ```bash
-python -m scripts.live_validation --region us-west-2
+python -m scripts.live_validation --region us-east-2
 ```
 
 Highlight:
