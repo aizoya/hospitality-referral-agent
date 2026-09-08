@@ -72,6 +72,50 @@ Recommended project URL: the public competition repository or an official AIZOYA
 
 Submitting the FTU form is a human-owned external representation and provider-terms gate. Do not submit it automatically.
 
+As of the September 7, 2026 controlled retry, the FTU error no longer recurs. Treat FTU as cleared unless AWS returns that specific provider-onboarding error again.
+
+### Daily-token quota / provisioning troubleshooting
+
+If preflight passes and the live call reaches `Converse` or `ConverseStream` but fails with:
+
+```text
+ThrottlingException: Too many tokens per day, please wait before trying again.
+```
+
+classify the failure as a Bedrock token-quota or account-provisioning gate rather than an application defect.
+
+Current Strands uses Amazon Bedrock by default and, when this project does not pass an explicit model ID, resolves to the Strands default Claude Sonnet 4.6 inference model. AWS documents that Bedrock runtime inference is controlled by model-level token quotas and that new AWS accounts can receive reduced token-per-day quotas.
+
+For the September 7, 2026 retry in `us-east-2`:
+
+- Bedrock preflight passed.
+- AWS credentials were valid.
+- Bedrock model discovery succeeded with 91 models visible.
+- The live Strands request reached Bedrock `ConverseStream`.
+- The earlier Anthropic FTU error did not recur.
+- Bedrock rejected the request only with `Too many tokens per day` after its normal retry sequence.
+
+Safe diagnostic sequence:
+
+1. Inspect Amazon Bedrock quotas in **Service Quotas** for the active region.
+2. Compare the applied quota with the AWS default for Claude Sonnet 4.6, especially token-per-day and token-per-minute entries.
+3. If an applied token-per-day quota is `0` or materially reduced, treat that as account provisioning/quota state.
+4. Do not broaden IAM permissions, create access keys, or switch models merely to bypass this condition.
+5. Do not request or accept any paid/provisioned capacity change without explicit owner approval.
+6. After quota availability changes, rerun the exact same controlled validation command before making application changes.
+
+Read-only CloudShell inspection, when the current IAM role permits Service Quotas reads:
+
+```bash
+aws service-quotas list-service-quotas \
+  --service-code bedrock \
+  --region us-east-2 \
+  --query "Quotas[?contains(QuotaName, 'Claude Sonnet 4.6')].[QuotaName,Value,Adjustable,QuotaCode]" \
+  --output table
+```
+
+This command only reads quota metadata; it does not request or change a quota. If it returns an authorization error, use the AWS Console instead rather than broadening IAM solely for this diagnostic.
+
 ## Phase 2 — Browser demonstration
 
 Start the browser in its default offline-safe mode first:
