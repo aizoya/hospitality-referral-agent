@@ -111,10 +111,10 @@ Run the full Strands agent using the included sample referral:
 python -m scripts.run_demo
 ```
 
-Run the final one-command AWS/Bedrock validation:
+Run the final one-command AWS/Bedrock validation in the region already confirmed by preflight/model discovery:
 
 ```bash
-python -m scripts.live_validation --region us-west-2
+python -m scripts.live_validation --region us-east-2
 ```
 
 Optionally specify a Bedrock model ID:
