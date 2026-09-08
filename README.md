@@ -54,7 +54,7 @@ See [`docs/architecture.md`](docs/architecture.md) for the detailed architecture
 ## Competition package
 
 - [`docs/submission-package.md`](docs/submission-package.md) — Devpost-ready project story, requirements checklist, and submission copy
-- [`docs/judge-readiness.md`](docs/judge-readiness.md) — AIZOYA OS 2.0 review against all five judging dimensions
+- [`docs/judge-readiness.md`](docs/judge-readiness.md) — AIZOYA OS 2.4 review against all five judging dimensions
 - [`docs/demo-script.md`](docs/demo-script.md) — under-five-minute demonstration sequence
 - [`docs/aws-evening-runbook.md`](docs/aws-evening-runbook.md) — safe Bedrock validation and AgentCore decision sequence
 - [`docs/public-demo-deployment.md`](docs/public-demo-deployment.md) — GitHub Pages deployment and QA runbook
