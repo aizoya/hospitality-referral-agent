@@ -49,6 +49,8 @@ Avoid reading code line by line.
 
 ## 4. Live Strands + Bedrock proof — 60 seconds
 
+### Preferred path — quota available
+
 After the AWS preflight has already been confirmed, use the controlled live browser mode:
 
 ```bash
@@ -57,7 +59,7 @@ python -m scripts.run_web_demo --enable-live
 
 Click **Run live Strands + Bedrock**.
 
-Alternatively, if the browser live path is unavailable, use the one-command validation fallback in the region already confirmed by preflight/model discovery:
+Alternatively, use the one-command validation path in the verified region:
 
 ```bash
 python -m scripts.live_validation --region us-east-2
@@ -72,6 +74,24 @@ Highlight:
 - APPROVAL STATUS
 
 State explicitly that this is the real Strands + Amazon Bedrock path.
+
+### Contingency path — AWS account quota still externally blocked
+
+If AWS Support has not restored a non-zero Bedrock daily-token quota before recording, **do not simulate or claim a successful live response**.
+
+Instead, keep this section under 45 seconds and show only safe evidence:
+
+1. the successful AWS/Bedrock preflight (`credentials=true`, model discovery succeeds),
+2. the Strands implementation in `src/referral_agent.py`,
+3. the controlled runtime error showing Bedrock receives the request but rejects it at the account daily-token quota,
+4. the zero/non-adjustable daily-token quota evidence, with account identifiers cropped,
+5. the public deterministic demo and green CI as the reproducible judge path.
+
+Say:
+
+> The live request reaches Amazon Bedrock through Strands, but this AWS account currently has a zero, non-adjustable daily-token quota. AWS Support is reviewing that account-level provisioning issue. I am not weakening IAM or switching models to hide the external gate, so the public judge demo stays deterministic and reproducible while preserving the exact same scoring and human-approval boundary.
+
+Do not show the AWS Support case ID, account number, ARNs, credentials, billing details, or private console metadata in the video.
 
 ## 5. Human-control boundary — 35 seconds
 
@@ -121,9 +141,9 @@ Do not mention AgentCore as implemented unless it is actually working and demons
 - [ ] Product appears in first 10 seconds
 - [ ] Synthetic referral clearly identified
 - [ ] Strands `Agent` and `@tool` visible
-- [ ] Successful live Bedrock execution visible
+- [ ] Successful live Bedrock execution visible **or** the external quota gate is disclosed accurately without claiming success
 - [ ] Owner-approval boundary visible
 - [ ] Green CI visible
-- [ ] No AWS account IDs, ARNs, credentials, tokens, private customer data, or billing information visible
+- [ ] No AWS account IDs, ARNs, credentials, tokens, support case IDs, private customer data, or billing information visible
 - [ ] Public repository visible at close
 - [ ] No unsupported production-impact claims
