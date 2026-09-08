@@ -79,16 +79,28 @@ python -m scripts.run_web_demo --enable-live
 
 Both modes preserve the owner-approval boundary and do not send outreach.
 
+## Current AWS validation state
+
+The application path is validated through the Bedrock runtime boundary:
+
+- AWS credentials resolve successfully.
+- Bedrock model discovery succeeds.
+- The live Strands request reaches Bedrock `ConverseStream`.
+- The earlier AWS account-verification and Anthropic first-time-use gates no longer recur.
+- The remaining external blocker is an account-level Bedrock daily-token quota of `0` for Claude Sonnet 4.6, including non-adjustable daily-token quotas.
+- AWS Support is reviewing the account-level provisioning issue.
+
+Do not broaden IAM permissions, create long-lived access keys, switch models merely to bypass the quota, or claim a successful live response until one is actually captured.
+
 ## Recommended demonstration flow
 
 1. Open the browser demo and show the hospitality referral problem.
 2. Run deterministic analysis and show transparent scoring.
 3. Briefly show the real Strands `Agent` and `@tool` code.
-4. Run the live AWS/Bedrock path after credentials and model access are confirmed.
-5. Highlight PRIORITY, WHY, NEXT ACTION, DRAFT, and APPROVAL STATUS.
-6. Show the successful GitHub Actions CI run.
-7. Show the owner-control boundary.
-8. Close on the business impact, public static demo, and public repository.
+4. If the Bedrock quota is restored, run the live AWS/Bedrock path and show the actual response.
+5. If the quota remains externally blocked, disclose that fact briefly and show the successful preflight, Strands wiring, quota-gate evidence, deterministic public demo, and green CI without simulating success.
+6. Show the owner-control boundary.
+7. Close on the business impact, public static demo, and public repository.
 
 The final video must remain under five minutes.
 
@@ -128,6 +140,7 @@ Do not claim measured revenue, conversion, time savings, or production traction 
 - Public demo makes no AWS/network requests
 - Live Bedrock browser action is disabled by default
 - CI verifies key guardrails
+- External cloud-service failures are disclosed rather than hidden by weakening security controls or changing the judging story
 
 ## Submission requirements checklist
 
@@ -141,9 +154,10 @@ Do not claim measured revenue, conversion, time savings, or production traction 
 - [x] Successful GitHub Actions CI after security hardening
 - [x] Local product-facing browser demo
 - [x] Pages-ready static judge demo asset
-- [x] Demo script
+- [x] Demo script with truthful external-quota contingency path
 - [x] Current public-repo privacy/secrets review completed
-- [ ] Successful live AWS/Bedrock validation captured for evidence
+- [x] Bedrock preflight/model discovery and request routing to `ConverseStream` captured
+- [ ] Successful live AWS/Bedrock model response captured for evidence
 - [ ] GitHub Pages enabled and public static demo URL verified
 - [ ] Verified competition branch merged to default `main`
 - [ ] Public YouTube or Vimeo video, maximum five minutes
