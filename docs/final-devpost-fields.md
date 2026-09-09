@@ -2,6 +2,12 @@
 
 Use this as the single source of truth when entering or re-entering the Agents for Humans Devpost submission.
 
+## Schedule
+
+- AIZOYA internal target: September 13, 2026.
+- Official deadline: September 14, 2026 at 5:00 PM PDT.
+- September 14 is correction/recovery buffer, not planned feature time.
+
 ## General info
 
 **Project name**
@@ -52,7 +58,13 @@ Builder ID account email is managed outside this public repository. Do not publi
 
 ## Project story
 
-Use `docs/submission-package.md` as the authoritative long-form project story and keep all claims aligned to the current runtime evidence.
+Use `docs/submission-package.md` as the authoritative long-form project story and keep all claims aligned to current runtime evidence.
+
+Preferred judge framing:
+
+**Hospitality Referral Agent is an AI referral operator that converts fragmented hospitality referrals into prioritized, explainable, owner-approved follow-up work.**
+
+Do not reduce the story to generic “lead scoring + message drafting.”
 
 ## Try it out links
 
@@ -68,18 +80,22 @@ Do not publish a fake or unverified live URL.
 
 Use the current architecture artifact derived from `docs/architecture.md` or the approved AIZOYA-branded architecture image prepared for the submission gallery.
 
+The diagram should make the human decision boundary visible:
+
+Referral → Strands Agent → deterministic scoring tool → priority/explanation → next action → draft → owner approval.
+
 ## Video demo
 
 Required public YouTube or Vimeo video, under five minutes.
 
-Use `docs/video-recording-package.md`.
+Use `docs/video-recording-package.md` and `docs/final-submission-runbook.md`.
 
-Two allowed recording paths:
+Two authorized paths:
 
 - Path A: show a successful live Strands + Bedrock response only if AWS eligibility is restored and verified.
-- Path B: if AWS eligibility remains blocked, show the working deterministic/browser product, actual Strands implementation, architecture, and CI while briefly disclosing the external account-level eligibility restriction.
+- Path B: if AWS remains externally blocked, show the working deterministic/browser product, real Strands implementation, architecture, CI, and human-approval boundary while briefly disclosing the external account-level quota/eligibility restriction.
 
-Never simulate a successful live Bedrock response.
+Live Bedrock success is a score enhancer, not a prerequisite for a truthful submission. Never simulate a successful live response.
 
 ## Testing instructions
 
@@ -107,6 +123,18 @@ At submission-preparation time, the newly created AWS account remains under Amaz
 
 This is an external account-eligibility condition, not currently classified as an application logic or IAM defect.
 
+## Judge-traceability lock
+
+Before clicking Submit, confirm that the project story and video visibly support all five judging dimensions:
+
+- **Technical Implementation:** real Strands `Agent`, real `@tool`, deterministic scoring, Bedrock path evidence, tests/CI, owner-approval guardrail.
+- **Design:** clear referral → priority → why → next action → draft → approval workflow.
+- **Potential Impact:** specific hospitality audience and response-time hypothesis clearly labeled as a hypothesis.
+- **Creativity & Originality:** hospitality-specific referral operator, deterministic business logic + model reasoning, relationship-sensitive human control.
+- **Presentation:** working product appears immediately, end-to-end flow is understandable, architecture is concise, video is under five minutes.
+
+Remove or qualify any claim that cannot be tied to direct evidence.
+
 ## Optional bonus blog
 
 Leave blank unless an actual builder.aws post is published with `Agents for Humans` in the title.
@@ -114,6 +142,7 @@ Leave blank unless an actual builder.aws post is published with `Agents for Huma
 ## Final pre-submit QA
 
 - [ ] Public repository loads without login
+- [ ] Default branch contains the competition build
 - [ ] README and architecture are visible
 - [ ] MIT license is visible
 - [ ] Strands Agents is named in Built With and project story
@@ -121,10 +150,15 @@ Leave blank unless an actual builder.aws post is published with `Agents for Huma
 - [ ] Public demo URL is verified if included
 - [ ] Public YouTube/Vimeo video is under 5 minutes
 - [ ] Video shows the working project, not only slides
-- [ ] Video explains problem, solution, audience, and Strands usage
+- [ ] Video explains problem, audience, why it matters, Strands use, and human decision boundary
 - [ ] No private AWS account/support information is visible
 - [ ] All required Devpost fields are complete
 - [ ] Professional Agents track selected
-- [ ] Final submission occurs before September 14, 2026 at 5:00 PM PDT
+- [ ] Architecture diagram uploaded
+- [ ] Pre-existing work disclosure accurate
+- [ ] No unsupported traction/revenue/production-readiness claims
+- [ ] All five judging dimensions have visible evidence
+- [ ] Target submission completed by September 13, 2026
+- [ ] Absolute deadline remains September 14, 2026 at 5:00 PM PDT
 
 After the deadline, do not modify the submitted project, repository, form, or video until organizer rules permit it.
