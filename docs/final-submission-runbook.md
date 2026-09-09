@@ -1,10 +1,16 @@
 # Hospitality Referral Agent — Final Submission Runbook
 
-Purpose: minimize elapsed time between AWS Bedrock eligibility restoration and final Devpost submission while preserving the existing release and security guardrails.
+Purpose: secure a complete, truthful, judge-ready Devpost submission whether or not AWS Bedrock live-inference eligibility is restored before the deadline, while preserving existing security and human-approval guardrails.
 
-## Current external gate
+## Schedule authority
 
-AWS Support has confirmed that the live-inference restriction is an account-level eligibility restriction associated with the account being newly created. The request is under Bedrock service-team review.
+- Official deadline: September 14, 2026 at 5:00 PM PDT.
+- AIZOYA internal submission target: September 13, 2026.
+- September 14 is correction/recovery buffer only, not planned feature time.
+
+## Current external AWS gate
+
+AWS Support has confirmed that the live-inference restriction is an account-level eligibility restriction associated with the newly created account. The request is under Bedrock service-team review.
 
 Known evidence in `us-east-2`:
 
@@ -14,28 +20,47 @@ Known evidence in `us-east-2`:
 - earlier AWS account-verification gate cleared
 - Anthropic FTU/use-case gate cleared
 - Claude Sonnet 4.6 runtime quotas remain `0`
-- latest read-only quota re-check still shows `L-B29C9321 = 0` and `L-248E47B7 = 0`
+- latest read-only quota re-check shows `L-B29C9321 = 0` and `L-248E47B7 = 0`
 - runtime failure: `ThrottlingException: Too many tokens per day, please wait before trying again.`
-- AWS Support case status text may change during review; do not treat a support workflow label as proof that invocation eligibility is restored
 
-Do not broaden IAM, create long-lived access keys, switch models merely to bypass the restriction, or merge PR #1 while this gate remains unresolved.
+Do not broaden IAM, create long-lived access keys, switch models merely to bypass the restriction, or claim successful live inference without captured evidence.
 
-## Work that can proceed while AWS review is pending
+## Submission must not depend on AWS restoration
 
-Do not wait idly on AWS. Continue the submission package in parallel:
+Live Bedrock success is a score enhancer, not a hard prerequisite for a truthful competition submission.
 
-- complete all Devpost fields that do not require a final video URL
-- prepare the public image gallery and architecture upload
-- keep the public repository clean and CI green
-- prepare the final video shot list, narration, and truthful contingency wording
-- verify AWS Builder ID / Builder Center profile information
-- prepare final public-link and submission QA
+Two release paths are authorized:
 
-A video may be recorded using the working deterministic/browser product path if needed. If AWS live inference is still externally blocked at recording time, disclose that condition briefly and accurately; never simulate or imply a successful live response.
+### Path A — AWS restored before release lock
 
-## Trigger to resume live-release sequence
+1. Re-check quota.
+2. Run one controlled live validation.
+3. Capture safe evidence.
+4. Re-run deterministic tests.
+5. Record evidence in PR #1.
+6. Merge the verified branch.
+7. Enable/verify GitHub Pages.
+8. Record the preferred live-proof video.
+9. Complete and submit Devpost.
 
-Resume the live-release sequence only after AWS indicates the restriction has been reviewed/changed, or after a read-only quota check shows a non-zero usable quota.
+### Path B — AWS still externally blocked at release lock
+
+Use this path no later than the September 13 internal target if AWS has not restored usable inference eligibility.
+
+1. Confirm deterministic/local tests and CI remain green.
+2. Confirm the public repository contains the real Strands `Agent`, real `@tool`, architecture, setup instructions, MIT license, and truthful AWS disclosure.
+3. Confirm the static judge demo makes no AWS/network requests and visibly preserves owner approval.
+4. Record PR #1 evidence that live AWS execution remains externally blocked by account-level quota/eligibility, with no IAM broadening or model switch.
+5. Merge the competition branch to `main` once the deterministic release baseline is green and the public package is truthful.
+6. Enable and verify GitHub Pages from `main` → `/docs`.
+7. Record the fallback working-product video using the deterministic browser demo, Strands implementation, architecture, CI, human-approval boundary, and concise external-quota disclosure.
+8. Complete and submit Devpost before the internal target.
+
+Do not let an optional live-cloud proof become a single point of failure for an otherwise compliant submission.
+
+## Controlled live-validation sequence
+
+Run only when AWS indicates the restriction has changed or a read-only quota check shows a non-zero usable quota.
 
 ### 1. Re-check quota
 
@@ -46,8 +71,6 @@ aws service-quotas list-service-quotas \
   --query "Quotas[?contains(QuotaName, 'Claude Sonnet 4.6')].[QuotaName,Value,Adjustable,QuotaCode]" \
   --output table
 ```
-
-Acceptance: the relevant runtime quota is no longer zero, or AWS explicitly confirms the account is enabled for live inference.
 
 ### 2. Run one controlled live validation
 
@@ -64,7 +87,7 @@ Acceptance:
 - no FTU, account-verification, IAM, eligibility, or daily-token error appears
 - output remains owner-controlled and draft-only
 
-Capture safe evidence only. Do not expose account IDs, ARNs, credentials, session tokens, billing data, support-case details, or private information.
+Capture safe evidence only. Never expose account IDs, ARNs, credentials, session tokens, billing data, support-case details, or private information.
 
 ### 3. Re-run deterministic baseline
 
@@ -80,87 +103,80 @@ Acceptance:
 - `approval_required` remains true
 - outbound status remains `DRAFT_ONLY_NOT_SENT`
 
-### 4. Record release evidence in PR #1
+## Judge-evidence lock before submission
 
-Record:
+Every judging dimension must have direct evidence:
 
-- quota / eligibility status after AWS review
-- successful live validation timestamp/result
-- local test result
-- CI status
-- confirmation that no IAM broadening/model switch was used
+| Judging dimension | Required visible evidence |
+| --- | --- |
+| Technical Implementation | Strands `Agent`, `@tool`, deterministic scoring, Bedrock path evidence, tests/CI, human-approval control |
+| Design | Clear referral → priority → explanation → next action → draft → approval flow |
+| Potential Impact | Specific hospitality user and clearly labeled response-time hypothesis |
+| Creativity & Originality | Hospitality-specific referral operator, deterministic business logic + model reasoning, human decision boundary |
+| Presentation | Working product first, concise architecture, end-to-end proof, under-five-minute public video |
 
-### 5. Merge PR #1
+If a claim cannot be tied to product, demo, repository, CI, architecture, or other direct evidence, remove or qualify it.
 
-Only after steps 1–4 are green.
+## Final video sequence
 
-Merge the verified competition branch into `main`. Do not add new feature scope during this step.
+Target: 3:30–4:30. Hard maximum: five minutes.
 
-### 6. Enable and verify GitHub Pages
-
-Source: `main` → `/docs`
-
-Verify:
-
-- public page loads on desktop and mobile
-- synthetic sample is clearly labeled
-- deterministic analysis works
-- no network/AWS requests are made by the static public demo
-- owner-approval language is visible
-- no secrets/private data are exposed
-
-### 7. Record final video
-
-Target: under five minutes.
-
-Preferred sequence if AWS eligibility is restored:
+### Preferred path
 
 1. Product/problem in first 10 seconds
-2. Static/offline deterministic workflow
+2. Deterministic workflow
 3. Strands `Agent` + `@tool` proof
 4. Successful live Strands + Bedrock proof
 5. Human-approval boundary
-6. Architecture + latest green CI
+6. Architecture + green CI
 7. Public repository/demo close
 
-Fallback sequence if AWS remains externally blocked:
+### Fallback path
 
 1. Product/problem in first 10 seconds
 2. Working deterministic/browser workflow
-3. Strands `Agent` + `@tool` implementation proof
-4. Brief factual disclosure that the new AWS account is under Bedrock invocation eligibility review
+3. Strands `Agent` + `@tool` proof
+4. Brief factual AWS account-level quota disclosure
 5. Human-approval boundary
-6. Architecture + latest green CI
+6. Architecture + green CI
 7. Public repository/demo close
 
-Never simulate or claim a successful live inference that did not occur.
+Never simulate or imply a successful live inference that did not occur.
 
-### 8. Final Devpost checklist
+## Final Devpost checklist
 
 Confirm before submission:
 
-- public repository URL
-- public demo URL if available
-- public YouTube/Vimeo video under five minutes
-- final project description proofread
-- Professional Agents track selection verified
-- AWS Builder ID entered
-- technology list accurate
-- screenshots safe and current
-- architecture diagram uploaded
-- pre-existing work disclosure accurate
-- no unsupported traction/revenue claims
-- deadline: September 14, 2026 at 5:00 PM PDT
+- public repository URL loads without login
+- default branch contains the competition build
+- README, setup instructions, architecture, source, and MIT license are visible
+- public GitHub Pages demo is verified if included
+- public YouTube/Vimeo video is under five minutes
+- video demonstrates the working product, not only slides
+- Strands use is visible and correctly described
+- Professional Agents track is selected
+- AWS Builder ID/profile information is entered correctly
+- technology list is accurate
+- architecture diagram is uploaded
+- screenshots are safe and current
+- pre-existing work disclosure is accurate
+- no unsupported traction, revenue, safety, or production-readiness claims
+- no private AWS account/support information is visible
+- all five judging dimensions have visible evidence
+- internal target: September 13, 2026
+- official deadline: September 14, 2026 at 5:00 PM PDT
 
 ## Stop conditions
 
 Stop and re-diagnose if any of the following appears:
 
-- a new IAM/AccessDenied error
+- new IAM/AccessDenied error
 - FTU reappears
-- quota remains zero after AWS says provisioning/eligibility is complete
 - live output violates the owner-approval boundary
 - tests regress
-- any secret/private data is exposed
+- CI fails
+- secret/private data is exposed
+- public demo diverges materially from documented deterministic scoring
+- a submission claim exceeds available evidence
 
-Do not compensate for a failed gate by weakening controls.
+Do not compensate for a failed gate by weakening controls or expanding scope.
