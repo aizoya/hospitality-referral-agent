@@ -1,16 +1,10 @@
 # Hospitality Referral Agent — Final Submission Runbook
 
-Purpose: secure a complete, truthful, judge-ready Devpost submission whether or not AWS Bedrock live-inference eligibility is restored before the deadline, while preserving existing security and human-approval guardrails.
+Purpose: finish and submit a truthful, competition-ready entry by the AIZOYA internal target while preserving security, human-approval, evidence, and cost-control guardrails.
 
-## Schedule authority
+## Current external gate
 
-- Official deadline: September 14, 2026 at 5:00 PM PDT.
-- AIZOYA internal submission target: September 13, 2026.
-- September 14 is correction/recovery buffer only, not planned feature time.
-
-## Current external AWS gate
-
-AWS Support has confirmed that the live-inference restriction is an account-level eligibility restriction associated with the newly created account. The request is under Bedrock service-team review.
+AWS Support has confirmed that the live-inference restriction is an account-level eligibility restriction associated with the account being newly created. The request is under Bedrock service-team review.
 
 Known evidence in `us-east-2`:
 
@@ -20,47 +14,29 @@ Known evidence in `us-east-2`:
 - earlier AWS account-verification gate cleared
 - Anthropic FTU/use-case gate cleared
 - Claude Sonnet 4.6 runtime quotas remain `0`
-- latest read-only quota re-check shows `L-B29C9321 = 0` and `L-248E47B7 = 0`
+- latest read-only quota re-check still shows `L-B29C9321 = 0` and `L-248E47B7 = 0`
 - runtime failure: `ThrottlingException: Too many tokens per day, please wait before trying again.`
+- AWS Support case status text may change during review; do not treat a support workflow label as proof that invocation eligibility is restored
 
-Do not broaden IAM, create long-lived access keys, switch models merely to bypass the restriction, or claim successful live inference without captured evidence.
+Do not broaden IAM, create long-lived access keys, switch models merely to bypass the restriction, or claim live success without evidence.
 
-## Submission must not depend on AWS restoration
+AWS live inference is a scoring enhancer, not a hard prerequisite for a truthful competition submission.
 
-Live Bedrock success is a score enhancer, not a hard prerequisite for a truthful competition submission.
+## Work that proceeds while AWS review is pending
 
-Two release paths are authorized:
+Continue the submission package in parallel:
 
-### Path A — AWS restored before release lock
+- complete all Devpost fields that do not require a final video URL
+- prepare the public image gallery and architecture upload
+- keep the public repository clean and CI green
+- prepare the final video shot list, narration, and truthful contingency wording
+- verify AWS Builder ID / Builder Center profile information
+- prepare final public-link and submission QA
+- preserve cost anomaly/budget monitoring appropriate to the prototype stage without adding cost-management UI to the hackathon product
 
-1. Re-check quota.
-2. Run one controlled live validation.
-3. Capture safe evidence.
-4. Re-run deterministic tests.
-5. Record evidence in PR #1.
-6. Merge the verified branch.
-7. Enable/verify GitHub Pages.
-8. Record the preferred live-proof video.
-9. Complete and submit Devpost.
+A video may be recorded using the working deterministic/browser product path if needed. If AWS live inference is still externally blocked at recording time, disclose that condition briefly and accurately; never simulate or imply a successful live response.
 
-### Path B — AWS still externally blocked at release lock
-
-Use this path no later than the September 13 internal target if AWS has not restored usable inference eligibility.
-
-1. Confirm deterministic/local tests and CI remain green.
-2. Confirm the public repository contains the real Strands `Agent`, real `@tool`, architecture, setup instructions, MIT license, and truthful AWS disclosure.
-3. Confirm the static judge demo makes no AWS/network requests and visibly preserves owner approval.
-4. Record PR #1 evidence that live AWS execution remains externally blocked by account-level quota/eligibility, with no IAM broadening or model switch.
-5. Merge the competition branch to `main` once the deterministic release baseline is green and the public package is truthful.
-6. Enable and verify GitHub Pages from `main` → `/docs`.
-7. Record the fallback working-product video using the deterministic browser demo, Strands implementation, architecture, CI, human-approval boundary, and concise external-quota disclosure.
-8. Complete and submit Devpost before the internal target.
-
-Do not let an optional live-cloud proof become a single point of failure for an otherwise compliant submission.
-
-## Controlled live-validation sequence
-
-Run only when AWS indicates the restriction has changed or a read-only quota check shows a non-zero usable quota.
+## Release path A — AWS restored before internal target
 
 ### 1. Re-check quota
 
@@ -71,6 +47,8 @@ aws service-quotas list-service-quotas \
   --query "Quotas[?contains(QuotaName, 'Claude Sonnet 4.6')].[QuotaName,Value,Adjustable,QuotaCode]" \
   --output table
 ```
+
+Acceptance: the relevant runtime quota is no longer zero, or AWS explicitly confirms the account is enabled for live inference.
 
 ### 2. Run one controlled live validation
 
@@ -87,7 +65,7 @@ Acceptance:
 - no FTU, account-verification, IAM, eligibility, or daily-token error appears
 - output remains owner-controlled and draft-only
 
-Capture safe evidence only. Never expose account IDs, ARNs, credentials, session tokens, billing data, support-case details, or private information.
+Capture safe evidence only. Do not expose account IDs, ARNs, credentials, session tokens, billing data, support-case details, or private information.
 
 ### 3. Re-run deterministic baseline
 
@@ -103,80 +81,124 @@ Acceptance:
 - `approval_required` remains true
 - outbound status remains `DRAFT_ONLY_NOT_SENT`
 
-## Judge-evidence lock before submission
+### 4. Record release evidence in PR #1
 
-Every judging dimension must have direct evidence:
+Record:
 
-| Judging dimension | Required visible evidence |
-| --- | --- |
-| Technical Implementation | Strands `Agent`, `@tool`, deterministic scoring, Bedrock path evidence, tests/CI, human-approval control |
-| Design | Clear referral → priority → explanation → next action → draft → approval flow |
-| Potential Impact | Specific hospitality user and clearly labeled response-time hypothesis |
-| Creativity & Originality | Hospitality-specific referral operator, deterministic business logic + model reasoning, human decision boundary |
-| Presentation | Working product first, concise architecture, end-to-end proof, under-five-minute public video |
+- quota / eligibility status after AWS review
+- successful live validation timestamp/result
+- local test result
+- CI status
+- confirmation that no IAM broadening/model switch was used
 
-If a claim cannot be tied to product, demo, repository, CI, architecture, or other direct evidence, remove or qualify it.
+Then proceed to the common release steps below.
 
-## Final video sequence
+## Release path B — AWS remains externally blocked
 
-Target: 3:30–4:30. Hard maximum: five minutes.
+Do not let the external quota condition become a single point of failure for the submission.
 
-### Preferred path
+Proceed to release when all of the following are green:
+
+- deterministic/local tests pass
+- CI is green
+- Strands `Agent` and `@tool` implementation are present and documented
+- architecture diagram is present
+- static judge demo works without network calls
+- human-approval guardrail remains enforced
+- public-repository privacy/secrets review is green
+- AWS limitation is disclosed accurately
+- no unsupported live-execution claim is made
+
+Then proceed to the common release steps below.
+
+## Common release steps
+
+### 5. Merge PR #1
+
+Merge the verified competition branch into `main`. Do not add new feature scope during this step.
+
+### 6. Enable and verify GitHub Pages
+
+Source: `main` → `/docs`
+
+Verify:
+
+- public page loads on desktop and mobile
+- synthetic sample is clearly labeled
+- deterministic analysis works
+- no network/AWS requests are made by the static public demo
+- owner-approval language is visible
+- no secrets/private data are exposed
+
+### 7. Record final video
+
+Target: under five minutes.
+
+Preferred sequence if AWS eligibility is restored:
 
 1. Product/problem in first 10 seconds
-2. Deterministic workflow
+2. Static/offline deterministic workflow
 3. Strands `Agent` + `@tool` proof
 4. Successful live Strands + Bedrock proof
 5. Human-approval boundary
-6. Architecture + green CI
+6. Architecture + latest green CI
 7. Public repository/demo close
 
-### Fallback path
+Fallback sequence if AWS remains externally blocked:
 
 1. Product/problem in first 10 seconds
 2. Working deterministic/browser workflow
-3. Strands `Agent` + `@tool` proof
-4. Brief factual AWS account-level quota disclosure
+3. Strands `Agent` + `@tool` implementation proof
+4. Brief factual disclosure that the new AWS account is under Bedrock invocation eligibility review
 5. Human-approval boundary
-6. Architecture + green CI
+6. Architecture + latest green CI
 7. Public repository/demo close
 
-Never simulate or imply a successful live inference that did not occur.
+Never simulate or claim a successful live inference that did not occur.
 
-## Final Devpost checklist
+### 8. Judge-evidence lock
+
+Before submission, confirm each judging dimension has visible evidence:
+
+- Technical Implementation — Strands `Agent`, `@tool`, deterministic tool, tests, Bedrock path/evidence
+- Design — clear referral-to-follow-up flow and owner approval
+- Potential Impact — specific hospitality audience and measurable response-time hypothesis
+- Creativity & Originality — hospitality referral operator framing, not generic lead scoring
+- Presentation — working product shown early, architecture concise, public repository/video complete
+
+If a claim lacks evidence, weaken or remove the claim rather than inventing proof.
+
+### 9. Final Devpost checklist
 
 Confirm before submission:
 
-- public repository URL loads without login
-- default branch contains the competition build
-- README, setup instructions, architecture, source, and MIT license are visible
-- public GitHub Pages demo is verified if included
-- public YouTube/Vimeo video is under five minutes
-- video demonstrates the working product, not only slides
-- Strands use is visible and correctly described
-- Professional Agents track is selected
-- AWS Builder ID/profile information is entered correctly
-- technology list is accurate
-- architecture diagram is uploaded
-- screenshots are safe and current
-- pre-existing work disclosure is accurate
-- no unsupported traction, revenue, safety, or production-readiness claims
-- no private AWS account/support information is visible
-- all five judging dimensions have visible evidence
-- internal target: September 13, 2026
+- public repository URL
+- public demo URL if available
+- public YouTube/Vimeo video under five minutes
+- final project description proofread
+- Professional Agents track selection verified
+- AWS Builder ID entered
+- technology list accurate
+- screenshots safe and current
+- architecture diagram uploaded
+- pre-existing work disclosure accurate
+- no unsupported traction/revenue claims
+- current cost controls remain operationally appropriate without changing the judge-facing product scope
+- internal AIZOYA target: September 13, 2026
 - official deadline: September 14, 2026 at 5:00 PM PDT
+
+September 14 is correction/recovery buffer, not planned feature-development time.
 
 ## Stop conditions
 
 Stop and re-diagnose if any of the following appears:
 
-- new IAM/AccessDenied error
+- a new IAM/AccessDenied error
 - FTU reappears
+- quota remains zero after AWS says provisioning/eligibility is complete
 - live output violates the owner-approval boundary
 - tests regress
-- CI fails
-- secret/private data is exposed
-- public demo diverges materially from documented deterministic scoring
-- a submission claim exceeds available evidence
+- any secret/private data is exposed
+- unexpected cloud spend appears materially above the prototype baseline
 
-Do not compensate for a failed gate by weakening controls or expanding scope.
+Do not compensate for a failed gate by weakening controls.
