@@ -1,10 +1,10 @@
 # AIZOYA Competition Intelligence Amendments
 
-Applies to the Hospitality Referral Agent submission and future AIZOYA hackathon/competition work under AIZOYA OS 2.4.
+Applies to the Hospitality Referral Agent submission and future AIZOYA hackathon/competition work under the latest approved AIZOYA OS, including the 2.4.2 Cost-Aware Architecture & Scaling Standard.
 
 ## Purpose
 
-Convert competition guidance into repeatable operating controls. These amendments do not broaden product scope. They govern prioritization, evidence, presentation, release readiness, and judge traceability.
+Convert competition guidance into repeatable operating controls. These amendments do not broaden product scope. They govern prioritization, evidence, presentation, release readiness, judge traceability, and cost observability.
 
 ## 1. COMPETITION-RUBRIC-FIRST
 
@@ -121,6 +121,24 @@ A judge-facing demo should prioritize:
 
 Do not lead with founder biography, corporate history, a large feature inventory, or lengthy slides before showing the product.
 
+## 11. COST-OBSERVABILITY-BY-DEFAULT
+
+Cloud enablement is not operationally complete until the project has cost visibility appropriate to its stage.
+
+For hackathon and prototype projects:
+
+1. establish a zero- or low-budget operating baseline before scale,
+2. document pricing, free-tier limits, and usage-based cost drivers,
+3. enable available budget/anomaly monitoring where practical,
+4. use alert thresholds appropriate to prototype economics rather than relying only on large vendor-default thresholds,
+5. attribute spend to service/project where practical,
+6. require human approval before knowingly increasing recurring or usage-based infrastructure cost,
+7. forecast expected cost at defined scale tiers under the AIZOYA OS cost standard.
+
+Cost observability is a production-readiness control, not a reason to broaden competition scope. Do not add dashboards, billing integrations, or other cost features to a hackathon build unless they directly improve a judging criterion or reduce a material operational risk.
+
+For Hospitality Referral Agent, AWS cost anomaly monitoring is supporting operational evidence only. It should not displace the core judge narrative around the referral workflow, Strands implementation, deterministic tool use, and owner-approval boundary.
+
 ## Project-specific decision
 
 Hospitality Referral Agent remains scope-frozen. The highest-value remaining work is release and evidence readiness:
@@ -132,4 +150,4 @@ Hospitality Referral Agent remains scope-frozen. The highest-value remaining wor
 - under-five-minute working-product video,
 - final Devpost completeness and privacy checks.
 
-AgentCore, additional skills, broader CRM features, calling, payouts, multi-tenant expansion, and unrelated integrations remain deferred unless the baseline is already safe and a direct judging benefit is proven.
+AgentCore, additional skills, broader CRM features, calling, payouts, multi-tenant expansion, unrelated integrations, and cost-management UI remain deferred unless the baseline is already safe and a direct judging benefit is proven.
