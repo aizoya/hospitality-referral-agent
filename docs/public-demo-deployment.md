@@ -16,7 +16,7 @@ Provide judges a public, zero-cost, offline-safe product surface without exposin
 - makes no network or AWS requests
 - does not generate or send outbound communication
 
-The real Strands + Bedrock workflow remains in `src/referral_agent.py` and is demonstrated from the controlled live environment/video.
+The real Strands + Bedrock workflow remains in `src/referral_agent.py` and is demonstrated from the controlled environment when live AWS eligibility is available.
 
 ## Recommended hosting: GitHub Pages
 
@@ -29,7 +29,7 @@ After the verified competition branch is merged to `main`:
 5. Select branch **main**.
 6. Select folder **/docs**.
 7. Save.
-8. Wait for GitHub Pages to report the published URL.
+8. Confirm GitHub Pages reports the published URL.
 9. Open the URL on mobile and desktop.
 10. Submit the form once and confirm the result is visible.
 
@@ -51,10 +51,14 @@ Before putting the URL in Devpost:
 
 Do not modify the static public demo to embed AWS credentials or call Bedrock directly from client-side JavaScript.
 
-For the real agent proof, use one of these controlled paths:
+The verified project region is **`us-east-2`**. Preserve that path unless a separately validated change is intentionally approved.
+
+### Path A — AWS live eligibility restored
+
+Use one of these controlled paths:
 
 ```bash
-python -m scripts.live_validation --region us-west-2
+python -m scripts.live_validation --region us-east-2
 ```
 
 or, after AWS preflight succeeds:
@@ -63,8 +67,14 @@ or, after AWS preflight succeeds:
 python -m scripts.run_web_demo --enable-live
 ```
 
-The competition video should visibly establish that this is the real Strands + Amazon Bedrock execution path.
+The competition video may then show the actual successful Strands + Amazon Bedrock execution path.
+
+### Path B — AWS account-level eligibility still externally blocked
+
+Do not switch regions, broaden IAM, create access keys, switch models merely to bypass the restriction, or simulate a successful live response.
+
+Use the deterministic public demo, real Strands implementation, architecture, green CI, and concise truthful disclosure of the external Bedrock eligibility/quota condition as the judge evidence path.
 
 ## Rollback
 
-If Pages introduces any unexpected issue, do not block the competition submission on it. Preserve the repository, video, and controlled live validation as the required proof path. The static demo is an enhancement, not permission to weaken the live-agent evidence standard.
+If Pages introduces any unexpected issue, do not block the competition submission on it. Preserve the public repository, video, deterministic test evidence, and controlled Strands implementation as the core proof package. The static demo is a scoring enhancement, not permission to weaken security or make unsupported cloud-execution claims.
