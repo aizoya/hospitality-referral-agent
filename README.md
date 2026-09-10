@@ -54,11 +54,12 @@ See [`docs/architecture.md`](docs/architecture.md) for the detailed architecture
 ## Competition package
 
 - [`docs/submission-package.md`](docs/submission-package.md) — Devpost-ready project story, requirements checklist, and submission copy
-- [`docs/judge-readiness.md`](docs/judge-readiness.md) — AIZOYA OS 2.4 review against all five judging dimensions
+- [`docs/judge-readiness.md`](docs/judge-readiness.md) — readiness review against all five judging dimensions under the latest approved AIZOYA OS baseline
+- [`docs/competition-os-amendments.md`](docs/competition-os-amendments.md) — rubric-first, deterministic, human-control, evidence, deadline-buffer, and cost-observability competition controls
 - [`docs/demo-script.md`](docs/demo-script.md) — under-five-minute demonstration sequence
 - [`docs/video-recording-package.md`](docs/video-recording-package.md) — final teleprompter, capture checklist, public video title/description, and truthful AWS-blocker contingency
 - [`docs/aws-evening-runbook.md`](docs/aws-evening-runbook.md) — safe Bedrock validation and AgentCore decision sequence
-- [`docs/final-submission-runbook.md`](docs/final-submission-runbook.md) — exact quota-clear → validation → merge → Pages → video → Devpost handoff sequence
+- [`docs/final-submission-runbook.md`](docs/final-submission-runbook.md) — Path A / Path B release sequence covering validation, merge, Pages, video, and Devpost handoff
 - [`docs/public-demo-deployment.md`](docs/public-demo-deployment.md) — GitHub Pages deployment and QA runbook
 - [`SECURITY.md`](SECURITY.md) — competition security and public-demo guardrails
 
@@ -160,9 +161,19 @@ The test suite verifies:
 - browser demo preserves the human-approval checkpoint
 - offline browser analysis remains credential-free
 - live browser invocation is disabled by default
-- static public demo contains safety markers and no network API calls
+- static public demo contains safety markers, judge-proof cues, synthetic-data labeling, and no network API calls
 
 CI runs the tests and a deterministic smoke demo on every pull request and on the competition branch.
+
+## Competition release policy
+
+Live Bedrock success is a valuable scoring enhancer, not a prerequisite for a truthful submission.
+
+**Path A — AWS restored:** capture a successful live response, rerun deterministic tests, record evidence, then proceed through merge, public demo, video, and Devpost QA.
+
+**Path B — AWS remains externally blocked by the internal cutoff:** if deterministic tests/CI, public-repository safety, Strands implementation, architecture, static judge demo, and truthful AWS disclosure are green, the competition package can proceed to the owner-controlled merge/release gate and submission without simulating live Bedrock success.
+
+This prevents an external account-level cloud restriction from becoming a single point of failure for the competition entry.
 
 ## Competition scope
 
@@ -175,7 +186,7 @@ This repository intentionally keeps the hackathon slice narrow. The following ar
 - referral payouts
 - sponsor intelligence
 
-AgentCore is an optional scoring and learning enhancement. It will be evaluated only after the core Strands workflow, live Bedrock validation, tests, and judge-facing demo are proven stable. The non-AgentCore path remains the rollback-safe baseline.
+AgentCore is an optional scoring and learning enhancement. It may be evaluated only after the baseline submission is safe and only when it can be added without weakening the human-approval boundary, increasing deadline risk, or creating unjustified cost. The non-AgentCore path remains the rollback-safe baseline.
 
 ## License
 
