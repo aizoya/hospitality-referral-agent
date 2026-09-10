@@ -13,14 +13,21 @@
     .hero { background:#111827; color:white; border-radius:20px; padding:28px; margin-bottom:20px; }
     .hero p { color:#d1d5db; max-width:760px; }
     .eyebrow { font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:#93c5fd; }
-    .card,.result { background:white; border:1px solid #e5e7eb; border-radius:18px; padding:22px; box-shadow:0 8px 24px rgba(17,24,39,.05); }
+    .card,.result,.proof { background:white; border:1px solid #e5e7eb; border-radius:18px; padding:22px; box-shadow:0 8px 24px rgba(17,24,39,.05); }
     .notice { margin-bottom:20px; padding:14px; border:1px solid #bfdbfe; background:#eff6ff; border-radius:12px; color:#1e3a8a; }
+    .proof { margin-bottom:20px; }
+    .proof h2 { margin-top:0; font-size:18px; }
+    .proof-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    .proof-step { border:1px solid #e5e7eb; border-radius:12px; padding:14px; }
+    .proof-step strong { display:block; margin-bottom:6px; }
+    .proof-step span { color:#64748b; font-size:14px; line-height:1.4; }
     form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
     label { display:flex; flex-direction:column; gap:7px; font-size:13px; font-weight:700; }
     input,select,textarea { width:100%; border:1px solid #cbd5e1; border-radius:10px; padding:11px; font:inherit; background:white; }
     textarea { min-height:92px; resize:vertical; }
     .wide { grid-column:1/-1; }
-    button { grid-column:1/-1; border:0; border-radius:10px; padding:13px 16px; font-weight:800; cursor:pointer; background:#111827; color:white; }
+    button { grid-column:1/-1; border:0; border-radius:10px; padding:13px 16px; min-height:48px; font-weight:800; cursor:pointer; background:#111827; color:white; }
+    button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible { outline:3px solid #93c5fd; outline-offset:2px; }
     .result { margin-top:20px; display:none; gap:16px; }
     .result.visible { display:grid; }
     .score { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
@@ -31,7 +38,13 @@
     .components { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 20px; padding-left:18px; }
     small { color:#64748b; }
     footer { margin-top:20px; color:#64748b; font-size:13px; }
-    @media (max-width:700px) { form { grid-template-columns:1fr; } .wide,button { grid-column:auto; } .components { grid-template-columns:1fr; } }
+    @media (max-width:700px) {
+      main { padding:18px 14px 40px; }
+      .hero,.card,.result,.proof { border-radius:14px; padding:18px; }
+      .proof-grid,form { grid-template-columns:1fr; }
+      .wide,button { grid-column:auto; }
+      .components { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body>
@@ -45,6 +58,15 @@
   <div class="notice">
     <strong>Safe public demo:</strong> this page runs entirely in your browser and makes no network or AWS requests. The real Strands + Amazon Bedrock path is demonstrated separately in the competition video and source repository.
   </div>
+
+  <section class="proof" aria-labelledby="proof-title">
+    <h2 id="proof-title">What this demo proves</h2>
+    <div class="proof-grid">
+      <div class="proof-step"><strong>1. Transparent prioritization</strong><span>A deterministic scoring tool converts referral context into a visible 0–100 priority score.</span></div>
+      <div class="proof-step"><strong>2. Agent-ready handoff</strong><span>The live Strands agent uses that structured result to explain the opportunity and prepare the next action.</span></div>
+      <div class="proof-step"><strong>3. Human decision boundary</strong><span>The workflow stops before outreach. The owner must approve, edit, or reject any follow-up.</span></div>
+    </div>
+  </section>
 
   <section class="card">
     <form id="referral-form">
@@ -60,7 +82,7 @@
       <label class="wide">Notes<textarea id="notes">First event is expected next month.</textarea></label>
       <button type="submit">Analyze referral offline</button>
     </form>
-    <p><small>Deterministic competition demo. No message is generated or sent from this public page.</small></p>
+    <p><small>Synthetic competition sample. Deterministic public demo only; no message is generated or sent from this page.</small></p>
   </section>
 
   <section id="result" class="result" aria-live="polite">
