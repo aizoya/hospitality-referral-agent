@@ -15,6 +15,15 @@ def test_static_demo_exists_and_is_offline_safe():
     assert "XMLHttpRequest" not in page
 
 
+def test_static_demo_surfaces_judge_proof_and_synthetic_labeling():
+    page = STATIC_DEMO.read_text()
+    assert "What this demo proves" in page
+    assert "Transparent prioritization" in page
+    assert "Agent-ready handoff" in page
+    assert "Human decision boundary" in page
+    assert "Synthetic competition sample" in page
+
+
 def test_static_demo_matches_core_scoring_thresholds():
     page = STATIC_DEMO.read_text()
     assert "score >= 80" in page
