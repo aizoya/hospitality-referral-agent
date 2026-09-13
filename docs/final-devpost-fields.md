@@ -18,14 +18,16 @@ Turn hospitality referrals into prioritized, explainable, owner-approved follow-
 
 ## Submitter
 
-**Submitter Type — REVIEW REQUIRED**
-Do not default to Organization. Confirm the actual entrant with the founder. Official rules require an organization entrant to be an existing organized or incorporated legal entity at entry; eligible individuals and teams may also enter.
+**Submitter Type — approved and saved September 13, 2026**
+Individual. The founder confirmed AIZOYA is not yet legally formed and explicitly approved changing the existing draft to Individual. The saved selection was verified after reopening the form.
 
 **Country of Residence**
 United States
 
-**Organization name — conditional**
-Use only the verified legal entrant name if Organization is selected. AIZOYA product branding alone does not establish legal-entity eligibility. Do not substitute another entity automatically.
+**Organization field**
+Not applicable — individual entrant.
+
+Devpost retained the previous text when an empty value was saved; the explicit not-applicable value was saved and verified after reopening. AIZOYA remains the project branding. Final submission has not occurred.
 
 **Track**
 Professional Agents
