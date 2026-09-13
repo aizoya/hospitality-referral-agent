@@ -167,7 +167,7 @@ CI runs the tests and a deterministic smoke demo on every pull request and on th
 
 ## Competition release policy
 
-Live Bedrock success is a valuable scoring enhancer, not a prerequisite for a truthful submission.
+The public demo link and AgentCore deployment are optional. The official rules still require a functioning Strands project. Path B is an internally approved disclosure/release contingency, not an organizer waiver or a guarantee of eligibility; successful end-to-end Strands execution remains unverified. Never simulate a successful live response.
 
 **Path A — AWS restored:** capture a successful live response, rerun deterministic tests, record evidence, then proceed through merge, public demo, video, and Devpost QA.
 

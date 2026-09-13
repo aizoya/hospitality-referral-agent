@@ -18,14 +18,14 @@ Turn hospitality referrals into prioritized, explainable, owner-approved follow-
 
 ## Submitter
 
-**Submitter Type**
-Organization
+**Submitter Type — REVIEW REQUIRED**
+Do not default to Organization. Confirm the actual entrant with the founder. Official rules require an organization entrant to be an existing organized or incorporated legal entity at entry; eligible individuals and teams may also enter.
 
 **Country of Residence**
 United States
 
-**Organization name**
-AIZOYA
+**Organization name — conditional**
+Use only the verified legal entrant name if Organization is selected. AIZOYA product branding alone does not establish legal-entity eligibility. Do not substitute another entity automatically.
 
 **Track**
 Professional Agents
@@ -95,7 +95,7 @@ Two authorized paths:
 - Path A: show a successful live Strands + Bedrock response only if AWS eligibility is restored and verified.
 - Path B: if AWS remains externally blocked, show the working deterministic/browser product, real Strands implementation, architecture, CI, and human-approval boundary while briefly disclosing the external account-level quota/eligibility restriction.
 
-Live Bedrock success is a score enhancer, not a prerequisite for a truthful submission. Never simulate a successful live response.
+The public demo link and AgentCore deployment are optional. The official rules still require a functioning Strands project. Path B is an internally approved disclosure/release contingency, not an organizer waiver or a guarantee of eligibility; successful end-to-end Strands execution remains unverified. Never simulate a successful live response.
 
 ## Testing instructions
 

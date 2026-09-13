@@ -109,27 +109,16 @@ Use the stronger framing:
 - If AWS quota remains externally blocked, disclose it accurately and do not simulate success
 - Publish the final public video under five minutes
 
-## AIZOYA OS 2.4 internal readiness score
+## Evidence-based readiness — September 13, 2026
 
-Current estimated readiness: **86 / 100**
+Status: **REVIEW_REQUIRED / submission not certified**. The earlier 86/100 estimate is retired because a numeric estimate obscures missing mandatory evidence.
 
-- Technical implementation: 18 / 20
-- Design/product completeness: 18 / 20
-- Potential impact: 17 / 20
-- Creativity/originality: 17 / 20
-- Presentation readiness: 16 / 20
+- Main build merged; current main CI green; fresh local suite: 15 passed.
+- Public Pages URL returns 404; repository reports `has_pages=false`.
+- Successful end-to-end Strands response remains unverified.
+- Final video, architecture upload, entrant identity, Devpost fields and submission confirmation remain unverified.
 
-This is an internal readiness score, not an official Devpost score.
-
-### Path to 90+
-
-1. Capture a successful live AWS/Bedrock response if AWS restores quota before recording.
-2. Merge the verified competition branch to the default branch after the live-release gate is satisfied.
-3. Enable and verify the public GitHub Pages demo.
-4. Record and publish the under-five-minute end-to-end video.
-5. Complete final Devpost and AWS Builder ID checks.
-6. Test AgentCore only after the baseline is stable.
-7. Publish optional Builder Center posts only if they do not threaten submission readiness.
+See `closeout-2026-09-13.md` for the evidence and exact continuation sequence. Optional public hosting and AgentCore do not waive the working-project requirement.
 
 ## Council of Excellence
 

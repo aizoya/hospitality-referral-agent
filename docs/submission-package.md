@@ -163,6 +163,8 @@ Do not claim measured revenue, conversion, time savings, or production traction 
 
 ## Submission requirements checklist
 
+Current verification: see `docs/closeout-2026-09-13.md`. The public demo link and AgentCore deployment are optional. The official rules still require a functioning Strands project. Path B is an internally approved disclosure/release contingency, not an organizer waiver or a guarantee of eligibility; successful end-to-end Strands execution remains unverified.
+
 - [x] Public GitHub repository
 - [x] Competition README on build branch
 - [x] MIT license file on build branch
@@ -179,7 +181,7 @@ Do not claim measured revenue, conversion, time savings, or production traction 
 - [x] Official Devpost rules/FAQ cross-checked against the submission package
 - [ ] Successful live AWS/Bedrock model response captured for evidence
 - [ ] GitHub Pages enabled and public static demo URL verified
-- [ ] Verified competition branch merged to default `main`
+- [x] Verified competition branch merged to default `main` — PR #1 merged September 10, 2026 (UTC)
 - [ ] Public YouTube or Vimeo video, maximum five minutes
 - [ ] Final Devpost text entered and proofread
 - [ ] AWS Builder ID entered

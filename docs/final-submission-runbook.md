@@ -20,7 +20,7 @@ Known evidence in `us-east-2`:
 
 Do not broaden IAM, create long-lived access keys, switch models merely to bypass the restriction, or claim live success without evidence.
 
-AWS live inference is a scoring enhancer, not a hard prerequisite for a truthful competition submission.
+The public demo link and AgentCore deployment are optional. The official rules still require a functioning Strands project. Path B is an internally approved disclosure/release contingency, not an organizer waiver or a guarantee of eligibility; successful end-to-end Strands execution remains unverified. Never simulate a successful live response.
 
 ## Work that proceeds while AWS review is pending
 
