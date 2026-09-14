@@ -74,9 +74,11 @@ Do not reduce the story to generic “lead scoring + message drafting.”
 https://github.com/aizoya/hospitality-referral-agent
 
 **Public demo:**
-Add only after GitHub Pages is enabled and the URL is verified.
+Expected GitHub Pages URL: https://aizoya.github.io/hospitality-referral-agent/
 
-Do not publish a fake or unverified live URL.
+GitHub's `pages build and deployment` workflow completed successfully from `main` after Pages was configured to publish `/docs`. Treat deployment as verified. Before entering the URL into Devpost, perform one normal-browser render check and confirm the demo loads and the synthetic referral interaction works as documented.
+
+Do not claim a browser-render verification that has not actually been observed.
 
 ## Architecture diagram
 
@@ -102,7 +104,7 @@ The public demo link and AgentCore deployment are optional. The official rules s
 ## Testing instructions
 
 Public judge demo:
-Open the public demo link when available and use the included synthetic hospitality referral. The browser demo performs deterministic referral scoring and displays priority, recommended timing, and the human-approval checkpoint.
+Open the public demo link after browser verification and use the included synthetic hospitality referral. The browser demo performs deterministic referral scoring and displays priority, recommended timing, and the human-approval checkpoint.
 
 Local deterministic test:
 1. Clone the public repository.
@@ -121,9 +123,16 @@ No email, SMS, voice call, or other outbound communication is sent automatically
 
 ## Current AWS disclosure
 
-At submission-preparation time, the newly created AWS account remains under Amazon Bedrock account-level eligibility review. Credentials resolve, Bedrock model discovery succeeds, and the Strands request reaches Bedrock `ConverseStream`, but live inference remains blocked while the relevant daily-token quotas remain `0`.
+Fresh September 13 CloudShell validation confirms:
 
-This is an external account-eligibility condition, not currently classified as an application logic or IAM defect.
+- AWS credentials resolve successfully.
+- Bedrock model discovery succeeds in `us-east-2` with 90 models listed.
+- The Strands runtime reaches Amazon Bedrock `ConverseStream`.
+- Bedrock rejects the live request with `ThrottlingException: Too many tokens per day, please wait before trying again.`
+- The Strands SDK surfaces the same condition as `ModelThrottledException`.
+- AWS Support previously confirmed the account is under internal review for account-level Bedrock inference eligibility/provisioning, and the founder sent a fresh evidence update on September 13.
+
+This is classified as an external AWS account/provisioning blocker, not an application-logic defect. Do not retry repeatedly, broaden IAM, create long-lived access keys, switch models merely to bypass the restriction, or claim successful live inference.
 
 ## Judge-traceability lock
 
@@ -143,24 +152,28 @@ Leave blank unless an actual builder.aws post is published with `Agents for Huma
 
 ## Final pre-submit QA
 
-- [ ] Public repository loads without login
-- [ ] Default branch contains the competition build
-- [ ] README and architecture are visible
-- [ ] MIT license is visible
-- [ ] Strands Agents is named in Built With and project story
-- [ ] AWS Builder ID/profile information is entered correctly
-- [ ] Public demo URL is verified if included
+- [x] Public repository loads without login
+- [x] Default branch contains the competition build
+- [x] README and architecture are visible
+- [x] MIT license is visible
+- [x] Strands Agents is named in Built With and project story
+- [x] Submitter type corrected to Individual and saved
+- [x] GitHub Pages deployment workflow completed successfully
+- [x] Fresh AWS validation reaches Bedrock runtime and records the external throttle truthfully
+- [ ] Normal-browser public demo render and interaction verified
+- [ ] AWS Builder ID/profile information confirmed in final form
 - [ ] Public YouTube/Vimeo video is under 5 minutes
 - [ ] Video shows the working project, not only slides
 - [ ] Video explains problem, audience, why it matters, Strands use, and human decision boundary
 - [ ] No private AWS account/support information is visible
 - [ ] All required Devpost fields are complete
 - [ ] Professional Agents track selected
-- [ ] Architecture diagram uploaded
+- [ ] Architecture diagram uploaded and legible
 - [ ] Pre-existing work disclosure accurate
 - [ ] No unsupported traction/revenue/production-readiness claims
 - [ ] All five judging dimensions have visible evidence
-- [ ] Target submission completed by September 13, 2026
+- [ ] Terms reviewed and accepted by the founder
+- [ ] Final project submitted and confirmation captured
 - [ ] Absolute deadline remains September 14, 2026 at 5:00 PM PDT
 
 After the deadline, do not modify the submitted project, repository, form, or video until organizer rules permit it.
